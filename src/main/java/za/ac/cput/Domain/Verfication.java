@@ -1,4 +1,4 @@
 package za.ac.cput.Domain;
 
-public class User {
+public class Verfication {
 }
