@@ -6,11 +6,11 @@
 package za.ac.cput.Domain;
 
 public class User {
-    private String userId;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
+    protected String userId;
+    protected String firstName;
+    protected String lastName;
+    protected String email;
+    protected String password;
 
     public User(){
     }//Default constructor
@@ -80,6 +80,13 @@ public class User {
             this.password = password;
             return this;
         }
+        public Student.Builder setStudentId(String studentId) {
+            return null;
+        }
+//        public Student.Builder setFaculty(String faculty) {
+//            return null;
+//        }
+
         //Copy of builder for set and changing since it is immutable
         public Builder copy(User user){
             this.userId = user.userId;
@@ -92,5 +99,7 @@ public class User {
         public User build(){
             return new User(this);
         }
+
+
     }
 }

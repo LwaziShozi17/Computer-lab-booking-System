@@ -58,6 +58,30 @@ public class Student extends User {
         private String currentYear;
 
         //Builder settters
+        @Override
+        public Builder setUserId(String userId) {
+            super.setUserId(userId);
+            return this;
+        }
+
+        @Override
+        public Builder setFirstName(String firstName) {
+            super.setFirstName(firstName);
+            return this;
+        }
+
+        @Override
+        public Builder setLastName(String lastName) {
+            super.setLastName(lastName);
+            return this;
+        }
+
+        @Override
+        public Builder setPassword(String password){
+            super.setPassword(password);
+            return this;
+        }
+
         public Builder setStudentId(String studentId) {
             this.studentId = studentId;
             return this;
