@@ -15,7 +15,7 @@ public class User {
     public User(){
     }//Default constructor
 
-    //Constructor with builder
+    //Constructor with builder.
     public User(Builder builder){
         this.userId = builder.userId;
         this.firstName = builder.firstName;
