@@ -2,13 +2,12 @@ import java.util.*;
 
 public class Verification {
 
-    // === Attributes ===
+
     private final String verificationId;
     private final Map<String, Rule> verificationRules;
     private final Map<String, Requirements> facultyRequirements;
     private final List<Session> activeSessions;
 
-    // === Private Constructor ===
     private Verification(Builder builder) {
         this.verificationId = builder.verificationId;
         this.verificationRules = builder.verificationRules;
@@ -48,8 +47,6 @@ public class Verification {
         }
     }
 
-    // === Methods ===
-
     public boolean verifyUser(User user) {
         for (Rule rule : verificationRules.values()) {
             if (!rule.apply(user)) {
@@ -74,7 +71,6 @@ public class Verification {
         return req != null && req.meets(user);
     }
 
-    // === Optional Getters ===
     public String getVerificationId() {
         return verificationId;
     }
