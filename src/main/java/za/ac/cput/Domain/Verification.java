@@ -1,3 +1,5 @@
+package za.ac.cput.Domain;
+
 import java.util.*;
 
 public class Verification {
@@ -14,8 +16,6 @@ public class Verification {
         this.facultyRequirements = builder.facultyRequirements;
         this.activeSessions = builder.activeSessions;
     }
-
-    // === Builder Class ===
     public static class Builder {
         private String verificationId;
         private Map<String, Rule> verificationRules = new HashMap<>();

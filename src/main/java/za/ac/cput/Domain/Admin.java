@@ -1,4 +1,4 @@
-package za.ca.cput.Domain;
+package za.ac.cput.Domain;
 import java.util.*;
 
         public class Admin {
