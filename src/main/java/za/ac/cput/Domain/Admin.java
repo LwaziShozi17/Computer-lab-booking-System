@@ -1,4 +1,5 @@
 package za.ac.cput.Domain;
+
 import java.util.*;
 
         public class Admin {
@@ -74,6 +75,6 @@ import java.util.*;
             return permissions;
         }
     }
-
+}
 
 

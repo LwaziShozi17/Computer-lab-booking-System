@@ -1,5 +1,6 @@
 package za.ac.cput.Domain;
 
+
 import java.util.*;
 
 public class Verification {
@@ -86,4 +87,5 @@ public class Verification {
     public List<Session> getActiveSessions() {
         return activeSessions;
     }
+
 }
