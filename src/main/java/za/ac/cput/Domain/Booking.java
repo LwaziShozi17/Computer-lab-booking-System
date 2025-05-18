@@ -1,19 +1,43 @@
 package za.ac.cput.Domain;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import java.time.LocalDateTime;
+
+
 /*Booking.java
-Booking POJO class
+Booking class
 Author: SM Thwabuse(220246009)
-Date: 11 May 2025*/
+Date: 06 August 2025
+*/
+@Entity
+@Table(name = "booking")
 
 public class Booking {
+   @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookingId;
+
+    @NotNull(message= "Student ID required")
+    @Column(nullable = false)
     private int studentId;
+
+    @NotBlank(message = "Computer ID required")
+    @Column(nullable = false)
     private String computerId;
-    private String startTime;
-    private String endTime;
+
+    @FutureOrPresent(message = "Start time must be in the present or future")
+    @Column(nullable = false)
+    private LocalDateTime startTime;
+
+    @Future(message = "End time must be in the future")
+    @Column(nullable = false)
+    private LocalDateTime endTime;
+
+    @NotBlank(message = "Status required")
+    @Column(nullable = false)
     private String status;
 
-    private Booking() {
-
+    protected Booking() {
     }
 
     private Booking(Builder builder) {
@@ -37,11 +61,11 @@ public class Booking {
         return computerId;
     }
 
-    public String getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public String getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
@@ -65,8 +89,8 @@ public class Booking {
         private int bookingId;
         private int studentId;
         private String computerId;
-        private String startTime;
-        private String endTime;
+        private LocalDateTime startTime;
+        private LocalDateTime endTime;
         private String status;
 
         public Builder setBookingId(int bookingId) {
@@ -84,12 +108,12 @@ public class Booking {
             return this;
         }
 
-        public Builder setStartTime(String startTime) {
+        public Builder setStartTime(LocalDateTime startTime) {
             this.startTime = startTime;
             return this;
         }
 
-        public Builder setEndTime(String endTime) {
+        public Builder setEndTime(LocalDateTime endTime) {
             this.endTime = endTime;
             return this;
         }
@@ -99,9 +123,20 @@ public class Booking {
             return this;
         }
 
+        public Builder copy(Booking booking) {
+            this.bookingId = booking.bookingId;
+            this.studentId = booking.studentId;
+            this.computerId = booking.computerId;
+            this.startTime = booking.startTime;
+            this.endTime = booking.endTime;
+            this.status = booking.status;
+            return this;
+        }
+
         public Booking build() {
             return new Booking(this);
         }
     }
 }
+
 

@@ -1,33 +1,39 @@
 package za.ac.cput.factory;
-/*Booking.java
-FacultyFactory class
-Author: SM Thwabuse(220246009)
-Date: 18 May 2025*/
+
 
 import za.ac.cput.Domain.Faculty;
 import za.ac.cput.util.Helper;
 
 public class FacultyFactory {
 
-    public static Faculty createFaculty(String facultyId, String facultyName) {
-        if (Helper.isNullorEmpty(facultyId)); Helper.isNullorEmpty(facultyName); {
-            return null;
+    public static Faculty createFaculty(String facultyName) {
+        if (Helper.isNullOrEmpty(facultyName) || facultyName.trim().length() < 3) {
+            throw new IllegalArgumentException("Invalid faculty name");
         }
 
-    }
 
-    public static Faculty createFacultyWithGeneratedId(String facultyName) {
-        if(Helper.isNullorEmpty(facultyName)) {
-            return null;
-        }
-
-        String facultyId = Helper.generateFacultyId(facultyName);
+        String facultyId =  "FAC-" +
+                facultyName.substring(0, 3).toUpperCase() + "-" +
+                String.format("%04d", (int)(Math.random() * 10000));
 
         return new Faculty.Builder()
                 .setFacultyId(facultyId)
-                .setFacultyName(facultyName)
+                .setFacultyName(facultyName.trim())
+                .build();
+    }
+
+    public static Faculty createFacultyWithId(String facultyId, String facultyName) {
+        if (!Helper.isValidFacultyId(facultyId)) {
+            throw new IllegalArgumentException("Invalid faculty ID format");
+        }
+        if (Helper.isNullOrEmpty(facultyName) || facultyName.trim().length() < 3) {
+            throw new IllegalArgumentException("Invalid faculty name");
+        }
+
+        return new Faculty.Builder()
+                .setFacultyId(facultyId)
+                .setFacultyName(facultyName.trim())
                 .build();
     }
 }
-
 

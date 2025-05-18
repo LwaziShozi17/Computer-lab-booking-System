@@ -1,15 +1,28 @@
-
 package za.ac.cput.Domain;
-/*Booking.java
-Booking POJO class
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+/*Faculty.java
 Author: SM Thwabuse(220246009)
-Date: 11 May 2025*/
+Date: 06 August 2025*/
 
+
+@Entity
+@Table(name = "faculties")
 public class Faculty {
+    @Id
+    @NotBlank(message = "Faculty ID is required")
+    @Size(min = 2, max = 10, message = "Faculty ID must be between 2 and 10 characters")
     private String facultyId;
+
+    @Column(name="faculty_id", nullable = false, length = 10, unique = true)
+    private String faculty_id;
+
+    @NotBlank(message = "Faculty name is required")
+    @Size(min = 2, max = 50, message = "Faculty name must be between 2 and 50 characters")
     private String facultyName;
 
-    private Faculty() {
+    protected Faculty() {
 
     }
 
