@@ -18,7 +18,7 @@ public class StudentFactory {
                 .setLastName(lastName)
                 .setEmail(email)
                 .setPassword(password)
-                .setStudentId("STD-" + Helper.generateId()) // Now works!
+                .setStudentId("STD -" + Helper.generateId()) // Now works!
                 .setFaculty(faculty)
                 .setEnrollmentYear(enrollmentYear)
                 .setCurrentYear(currentYear)
