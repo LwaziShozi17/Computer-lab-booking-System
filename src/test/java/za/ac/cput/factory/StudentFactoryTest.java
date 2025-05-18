@@ -10,7 +10,7 @@ class StudentFactoryTest {
         void createStudent() {
             Student student = StudentFactory.createStudent(
                     "Sandile", "Sibiya", "230975623@mycput.ac.za",
-                    "Mth040114", "IT", "2023", "3rd Year");
+                    "Mth040", "IT", "2023", "3rd Year");
             assertNotNull(student);
             System.out.println(student);
         }

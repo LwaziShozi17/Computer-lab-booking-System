@@ -1,4 +1,11 @@
-package za.ac.cput.factory;
+/*
+StudentFactory.java
+Student Factory class
+Author: SE Sibiya (230975623)
+Date: 18 May 2025
+*/
+
+        package za.ac.cput.factory;
 
 import za.ac.cput.Domain.Student;
 import za.ac.cput.util.Helper;
@@ -18,7 +25,7 @@ public class StudentFactory {
                 .setLastName(lastName)
                 .setEmail(email)
                 .setPassword(password)
-                .setStudentId("STD-" + Helper.generateId()) // Now works!
+                .setStudentId("STD -" + Helper.generateId()) // Now works!
                 .setFaculty(faculty)
                 .setEnrollmentYear(enrollmentYear)
                 .setCurrentYear(currentYear)

@@ -57,7 +57,7 @@ public class Student extends User {
         private String enrollmentYear;
         private String currentYear;
 
-        //Builder settters
+        //Builder setters
         @Override
         public Builder setUserId(String userId) {
             super.setUserId(userId);

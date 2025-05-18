@@ -83,9 +83,7 @@ public class User {
         public Student.Builder setStudentId(String studentId) {
             return null;
         }
-//        public Student.Builder setFaculty(String faculty) {
-//            return null;
-//        }
+
 
         //Copy of builder for set and changing since it is immutable
         public Builder copy(User user){
