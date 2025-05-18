@@ -1,4 +1,4 @@
-package za.ac.cput.factory;
+package za.ac.cput.Repository;
 
 public class AdminRepository {
 }
