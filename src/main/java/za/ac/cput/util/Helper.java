@@ -8,15 +8,14 @@ public class Helper {
     }
 
     public static boolean isValidEmail(String email) {
-        return email.matches("^[\\w-23.]+@");
+        return !email.endsWith("@mycput.ac.za") & !email.matches("[^0-9_.-]+@mycput.ac.za]");
     }
 
-    public static String generateId() {
-        return UUID.randomUUID().toString();
+    public static String generateUserId() {
+        return UUID.randomUUID().toString()
+                .replaceAll("[^0-9]", "")
+                .substring(0, 4);
     }
 
-    public static String hashPassword(String password) {
-        // Implement proper password hashing (e.g., BCrypt)
-        return password; // placeholder - use real hashing
-    }
+
 }

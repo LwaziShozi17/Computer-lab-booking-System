@@ -5,13 +5,21 @@
 
 package za.ac.cput.Domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table (name= "Student")
 public class Student extends User {
+    @Id
     private String studentId;
     private String faculty;
     private String enrollmentYear;
     private String currentYear;
 
-    private Student() {
+
+    public Student() {
     } //Default constructor
 
     //Constructor with parameter using builder
@@ -24,6 +32,23 @@ public class Student extends User {
     }
 
     //Getters
+    @Override
+    public String getUserId() {
+        return super.getUserId();
+    }
+    @Override
+    public String getFirstName() {
+        return super.getFirstName();
+    }
+    @Override
+    public String getLastName() {
+        return super.getLastName();
+    }
+    @Override
+    public String getEmail() {
+        return super.getEmail();
+    }
+
     public String getStudentId() {
         return studentId;
     }
@@ -43,10 +68,15 @@ public class Student extends User {
     @Override
     public String toString() {
         return "Student{" +
+                ", userId='" + userId + '\'' +
                 "studentId='" + studentId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", faculty='" + faculty + '\'' +
                 ", enrollmentYear='" + enrollmentYear + '\'' +
                 ", currentYear='" + currentYear + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 

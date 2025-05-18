@@ -12,20 +12,33 @@ import za.ac.cput.util.Helper;
 
 public class StudentFactory {
     public static Student createStudent(String firstName, String lastName,
-                                        String email, String password,
+                                        String email, String password, String studentId,
                                         String faculty, String enrollmentYear,
                                         String currentYear) {
 
-        if (Helper.isNullOrEmpty(firstName) || Helper.isNullOrEmpty(lastName)) {
-            throw new IllegalArgumentException("First and last name are required");
+        //Checking empty fields
+        if (Helper.isNullOrEmpty(firstName)
+                || Helper.isNullOrEmpty(lastName)
+                || Helper.isNullOrEmpty(email)
+                || Helper.isNullOrEmpty(password)
+                || Helper.isNullOrEmpty(studentId)
+                || Helper.isNullOrEmpty(faculty)
+                || Helper.isNullOrEmpty(enrollmentYear)
+                || Helper.isNullOrEmpty(currentYear)) {
+            throw new IllegalArgumentException("Please fill all the required fields");
+        }
+        //Checking if it is the right email
+        if (Helper.isValidEmail(email)) {
+            throw new IllegalArgumentException("Incorrect email domain");
         }
 
         return new Student.Builder()
+                .setUserId(Helper.generateUserId())
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setEmail(email)
                 .setPassword(password)
-                .setStudentId("STD -" + Helper.generateId()) // Now works!
+                .setStudentId(studentId) // Now works!
                 .setFaculty(faculty)
                 .setEnrollmentYear(enrollmentYear)
                 .setCurrentYear(currentYear)
