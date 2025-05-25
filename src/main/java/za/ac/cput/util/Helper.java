@@ -1,3 +1,8 @@
+/*   Helper.java
+     Helper class
+     Author: SE Sibiya (230975623)
+     Date: 25 May 2025 */
+
 package za.ac.cput.util;
 
 import java.util.UUID;
