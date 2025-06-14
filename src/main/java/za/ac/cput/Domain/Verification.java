@@ -1,10 +1,35 @@
 package za.ac.cput.Domain;
 
-
 import java.util.*;
 
-public class Verification {
+// Placeholder interfaces/classes (replace with your actual implementations)
+interface Rule {
+    boolean apply(User user);
+}
 
+interface Requirements {
+    boolean meets(User user);
+}
+
+class Session {
+    public boolean isAvailableFor(Booking booking) {
+        // dummy logic
+        return true;
+    }
+}
+
+class User {
+    private String faculty;
+    public String getFaculty() {
+        return faculty;
+    }
+}
+
+class Booking {
+    // Booking details
+}
+
+public class Verification {
 
     private final String verificationId;
     private final Map<String, Rule> verificationRules;
@@ -17,6 +42,7 @@ public class Verification {
         this.facultyRequirements = builder.facultyRequirements;
         this.activeSessions = builder.activeSessions;
     }
+
     public static class Builder {
         private String verificationId;
         private Map<String, Rule> verificationRules = new HashMap<>();
@@ -87,5 +113,4 @@ public class Verification {
     public List<Session> getActiveSessions() {
         return activeSessions;
     }
-
 }
