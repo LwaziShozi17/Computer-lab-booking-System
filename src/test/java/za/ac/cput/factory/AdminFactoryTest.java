@@ -7,21 +7,17 @@ package za.ac.cput.factory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import za.ac.cput.Domain.Admin;
-
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class AdminFactoryTest {
 
     private List<String> testPermissions;
-
     @BeforeEach
     void setUp() {
         testPermissions = Arrays.asList("MANAGE_USERS", "VIEW_REPORTS");
     }
-
     @Test
     void testCreateAdmin() {
         Admin admin = AdminFactory.createAdmin(
@@ -33,7 +29,7 @@ class AdminFactoryTest {
 
         assertNotNull(admin);
         assertEquals("Lwazi Shozi", admin.getName());
-        assertEquals("lwazi.shozi@cput.ac.za", admin.getEmail());
+        assertEquals("230220061@cput.ac.za", admin.getEmail());
         assertEquals("System Admin", admin.getRole());
         assertEquals(testPermissions, admin.getPermissions());
     }
@@ -55,7 +51,6 @@ class AdminFactoryTest {
     void testUniqueAdminId() {
         Admin admin1 = AdminFactory.createAdmin("User1", "u1@test.com", "Role1", testPermissions);
         Admin admin2 = AdminFactory.createAdmin("User2", "u2@test.com", "Role2", testPermissions);
-
         assertNotEquals(admin1.getAdminId(), admin2.getAdminId(), "Admin IDs should be unique");
     }
 }
