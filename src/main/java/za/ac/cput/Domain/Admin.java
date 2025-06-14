@@ -3,7 +3,6 @@ package za.ac.cput.Domain;
 import java.util.*;
 
         public class Admin {
-
         private final String adminId;
         private final String name;
         private final String email;
