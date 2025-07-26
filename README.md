@@ -1,5 +1,5 @@
-💻 CPUT Computer Booking System – Description & Development Plan
-✅ What is the Computer Booking System?
+ CPUT Computer Booking System – Description & Development Plan
+ What is the Computer Booking System?
 The CPUT Computer Booking System is a software application designed for students, administrators, and faculty at the Cape Peninsula University of Technology (CPUT) to book computer lab sessions on campus.
 
 This system:
@@ -12,7 +12,7 @@ Prevents double bookings and ensures fair access to lab resources.
 
 Tracks which students have used which labs, and when.
 
-✅ Why are we building it?
+ Why are we building it?
 To solve problems like:
 
 Overcrowding in labs.
@@ -85,7 +85,7 @@ Create unit tests for factories, services, and repositories.
 
 Example: AdminFactoryTest, BookingServiceTest
 
-✅ Optional Features to Add Later:
+ Optional Features to Add Later:
 GUI (JavaFX or Swing) for user interaction.
 
 Integration with a database (MySQL or PostgreSQL).
