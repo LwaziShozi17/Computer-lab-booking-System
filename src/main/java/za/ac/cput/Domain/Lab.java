@@ -1,14 +1,36 @@
 package za.ac.cput.Domain;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+@Entity
+@Table(name = "labs")
 public class Lab {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long labId;
 
+    @NotNull(message = "Location is required")
+    @Column(nullable = false)
     private String location;
+
+    @Positive(message = "Capacity must be positive")
+    @Column(nullable = false)
     private int capacity;
+
+    @NotNull(message = "Opening hours is required")
+    @Column(nullable = false)
     private String openingHours;
+
+    @NotNull(message = "Closing hours is required")
+    @Column(nullable = false)
     private String closingHours;
+
+    // Default constructor for JPA
+    public Lab() {
+    }
 
     public Lab(Builder builder) {
         this.labId = builder.labId;
@@ -38,9 +60,19 @@ public class Lab {
         return closingHours;
     }
 
-    public class Builder{
-        private Long labId;
+    @Override
+    public String toString() {
+        return "Lab{" +
+                "labId=" + labId +
+                ", location='" + location + '\'' +
+                ", capacity=" + capacity +
+                ", openingHours='" + openingHours + '\'' +
+                ", closingHours='" + closingHours + '\'' +
+                '}';
+    }
 
+    public static class Builder {
+        private Long labId;
         private String location;
         private int capacity;
         private String openingHours;
@@ -78,13 +110,10 @@ public class Lab {
             this.openingHours = lab.openingHours;
             this.closingHours = lab.closingHours;
             return this;
-
         }
-        public Lab build(){
+
+        public Lab build() {
             return new Lab(this);
         }
     }
-
-
-
 }
