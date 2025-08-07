@@ -1,12 +1,13 @@
+/*   StudentController.java
+     StudentController class
+     Author: SE Sibiya (230975623)
+     Date: 08 August 2025 2025 */
+
 package za.ac.cput.controller;
 
-
-import net.minidev.json.JSONUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import za.ac.cput.Domain.Student;
+import za.ac.cput.domain.Student;
 import za.ac.cput.service.StudentService;
 
 import java.util.Map;

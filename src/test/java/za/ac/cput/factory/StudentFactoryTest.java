@@ -7,7 +7,7 @@ Date: 18 May 2025
 package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
-import za.ac.cput.Domain.Student;
+import za.ac.cput.domain.Student;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

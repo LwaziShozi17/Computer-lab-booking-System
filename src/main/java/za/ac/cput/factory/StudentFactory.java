@@ -2,12 +2,12 @@
 StudentFactory.java
 Student Factory class
 Author: SE Sibiya (230975623)
-Date: 18 May 2025
+Date: 08 August 2025 2025
 */
 
 package za.ac.cput.factory;
 
-import za.ac.cput.Domain.Student;
+import za.ac.cput.domain.Student;
 import za.ac.cput.util.Helper;
 
 public class StudentFactory {

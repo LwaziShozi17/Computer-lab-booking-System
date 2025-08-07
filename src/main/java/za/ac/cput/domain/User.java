@@ -1,9 +1,9 @@
 /*   User.java
      User domain class
      Author: SE Sibiya (230975623)
-     Date: 10 May 2025 */
+     Date: 07 August 2025 */
 
-package za.ac.cput.Domain;
+package za.ac.cput.domain;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

@@ -1,11 +1,14 @@
+/*   StudentService.java
+     StudentService class
+     Author: SE Sibiya (230975623)
+     Date: 08 August 2025 2025 */
+
 package za.ac.cput.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import za.ac.cput.Domain.Student;
+import za.ac.cput.domain.Student;
 import za.ac.cput.repository.StudentRepository;
-
-import java.util.List;
 
 @Service
 public class StudentService {
