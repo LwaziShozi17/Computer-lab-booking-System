@@ -3,7 +3,7 @@ package za.ac.cput.repository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import za.ac.cput.Domain.Student;
+import za.ac.cput.domain.Student;
 import za.ac.cput.factory.StudentFactory;
 
 import static org.junit.jupiter.api.Assertions.*;

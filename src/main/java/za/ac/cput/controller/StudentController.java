@@ -56,7 +56,7 @@ public class StudentController {
             // Update the student information as needed
             student = new Student.Builder()
                     .copy(student)
-                    .setLastName("Abdulah")
+                    .setLastName("Sibaya")
                     .setFaculty("Informatic and Design")
                     .build();
             Student updatedStudent = studentService.updateStudent(student);
