@@ -40,7 +40,7 @@ public class StudentController {
             Student foundStudent = studentService.readStudent(student.getStudentId());
             return ResponseEntity.ok(Map.of("student", foundStudent));
         } catch (RuntimeException e) {
-            System.out.println("Student not found");
+            System.out.println("Student was not found");
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
