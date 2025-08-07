@@ -24,7 +24,7 @@ public class StudentService {
         if (studentRepository.findByStudentId(student.getStudentId()) != null) {
             throw new RuntimeException("Student already registered");
         }
-        // Save the student if not already registered
+        // Save the student infovif not already registered
         return studentRepository.save(student);
     }
 
