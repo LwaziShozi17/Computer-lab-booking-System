@@ -4,7 +4,6 @@ import za.ac.cput.Domain.Booking;
 import za.ac.cput.util.Helper;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class BookingFactory {
     public static Booking createBooking(int studentId, String computerId,

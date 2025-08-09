@@ -17,11 +17,11 @@ void testCreateBooking() {
     LocalDateTime end = start.plusHours(2);
 
     Booking booking = BookingFactory.createBooking(
-            220246,        // Valid student ID (> 0)
-            "COM-101",     // Valid computer ID format
+            220246,
+            "COM-101",
             start,
             end,
-            "BOOKED"    // Valid status
+            "BOOKED"
     );
     assertNotNull(booking);
     assertTrue(booking.getStudentId() >= 1000);
@@ -37,12 +37,12 @@ void testCreateBookingWithId() {
     LocalDateTime end = start.plusHours(1);
 
     Booking booking = BookingFactory.createBookingWithId(
-            2025,         // Specific booking ID
-            654321,        // Valid student ID
-            "COM-202",     // Valid computer ID
+            2025,
+            654321,
+            "COM-202",
             start,
             end,
-            "BOOKED"   // Valid status
+            "BOOKED"
     );
     assertEquals(2025, booking.getBookingId());
     System.out.println("Created booking with ID: " + booking);
@@ -56,10 +56,10 @@ void testInvalidComputerId() {
     assertThrows(IllegalArgumentException.class, () ->
             BookingFactory.createBooking(
                     123456,
-                    "INVALID",  // Wrong format
+                    "INVALID",
                     now,
                     now.plusHours(2),
-                    "BOOKED"  // Valid status
+                    "BOOKED"
             ));
 }
 
@@ -72,8 +72,8 @@ void testInvalidTimeRange() {
                     123456,
                     "COM-101",
                     now,
-                    now.minusHours(1),  // End before start
-                    "BOOKED"  // Valid status
+                    now.minusHours(1),
+                    "BOOKED"
             ));
 }
 

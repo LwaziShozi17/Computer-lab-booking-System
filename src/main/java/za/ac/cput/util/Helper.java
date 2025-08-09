@@ -18,11 +18,11 @@ public class Helper {
             throw new IllegalArgumentException("Faculty name must be at least 2 characters long");
         }
 
-        // Format: FAC-<Initials>-<Random>
+
         String[] words = facultyName.trim().split("\\s+");
         StringBuilder initials = new StringBuilder("FAC-");
 
-        // Get first letter of each word (minimum 2 letters)
+
         for (int i = 0; i < Math.min(words.length, 3); i++) {
             if (!words[i].isEmpty()) {
                 initials.append(words[i].substring(0, 1).toUpperCase());
@@ -30,7 +30,7 @@ public class Helper {
         }
 
         // Ensure we have at least 2 initials
-        if (initials.length() < 6) { // "FAC-X" needs another letter
+        if (initials.length() < 6) {
             initials.append("X");
         }
 
@@ -38,7 +38,7 @@ public class Helper {
     }
 
     public static boolean isValidBookingId(int bookingId) {
-        return bookingId >= 1000 && bookingId <= 9999; // Validate 4-digit range
+        return bookingId >= 1000 && bookingId <= 9999;
     }
 
     public static boolean isValidBooking(int studentId, String computerId,
@@ -66,7 +66,7 @@ public class Helper {
     }
 
     public static int generateBookingId() {
-        return 1000 + (int)(Math.random() * 9000); // Generates 4-digit ID (1000-9999)
+        return 1000 + (int)(Math.random() * 9000);
     }
 
 
