@@ -1,17 +1,23 @@
 package za.ac.cput;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * ComputerLabBookingSystemApplication
- * Main Spring Boot application for CPUT Computer Lab Booking System
- * Author: Lwazi Shozi (Student Number: 230220061)
- * Date: 14 June 2025
- */
-@SpringBootApplication
+import za.ac.cput.Domain.Admin;
+import za.ac.cput.Domain.Verification;
+import za.ac.cput.factory.AdminFactory;
+import za.ac.cput.factory.VerificationFactory;
+import za.ac.cput.repository.AdminRepository;
+import za.ac.cput.repository.VerificationRepository;
+
 public class Main {
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        // Create Admin
+        Admin admin = AdminFactory.createAdmin("Lwazi", "Shozi", "lwazi@example.com", "EMP001");
+        AdminRepository.getRepository().create(admin);
+        System.out.println("Admin Created: " + admin);
+
+        // Create Verification
+        Verification verification = VerificationFactory.createVerification(admin.getUserId(), true);
+        VerificationRepository.getRepository().create(verification);
+        System.out.println("Verification Created: " + verification);
     }
 }

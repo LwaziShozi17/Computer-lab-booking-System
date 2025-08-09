@@ -12,6 +12,7 @@ public class Student extends User {
     private String currentYear;
 
     private Student() {
+        super();
     } //Default constructor
 
     //Constructor with parameter using builder

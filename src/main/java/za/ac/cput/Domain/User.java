@@ -92,5 +92,8 @@ public class User {
         public User build(){
             return new User(this);
         }
+
+        public Admin.Builder setEmployeeId(String employeeId) {
+        }
     }
 }

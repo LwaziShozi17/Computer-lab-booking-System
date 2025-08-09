@@ -1,108 +1,47 @@
 package za.ac.cput.Domain;
 
 import jakarta.persistence.*;
-import java.util.*;
+import za.ac.cput.Domain.User;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * Admin entity representing system administrators who manage bookings and verifications.
+ * Extends the User class and adds employee-specific details and permissions.
+ */
 @Entity
 @Table(name = "admins")
-public class Admin {
-    
-    @Id
-    @Column(name = "admin_id")
-    private String adminId;
-    
-    @Column(name = "name", nullable = false)
-    private String name;
-    
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-    
-    @Column(name = "role", nullable = false)
-    private String role;
-    
-    @ElementCollection
+public class Admin extends User {
+
+    @Column(name = "employee_id", nullable = false, unique = true)
+    private String employeeId;
+
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "admin_permissions", joinColumns = @JoinColumn(name = "admin_id"))
     @Column(name = "permission")
     private List<String> permissions = new ArrayList<>();
 
-    // Default constructor for JPA
-    public Admin() {}
-
-    public Admin(Builder builder) {
-        this.adminId = builder.adminId;
-        this.name = builder.name;
-        this.email = builder.email;
-        this.role = builder.role;
-        this.permissions = builder.permissions;
+    // Default constructor required by JPA
+    protected Admin() {
+        super(); // Calls User's no-args constructor
     }
 
-    public static class Builder {
-        private String adminId;
-        private String name;
-        private String email;
-        private String role;
-        private List<String> permissions = new ArrayList<>();
-
-        public Builder adminId(String adminId) {
-            this.adminId = adminId;
-            return this;
-        }
-        public Builder name(String name) {
-            this.name = name;
-            return this;
-        }
-        public Builder email(String email) {
-            this.email = email;
-            return this;
-        }
-        public Builder role(String role) {
-            this.role = role;
-            return this;
-        }
-        public Builder permissions(List<String> permissions) {
-            this.permissions = permissions;
-            return this;
-        }
-        public Admin build() {
-            return new Admin(this);
-        }
+    // Builder-based constructor
+    private Admin(Builder builder) {
+        super();
+        this.employeeId = builder.employeeId;
+        this.permissions = builder.permissions != null ? new ArrayList<>(builder.permissions) : new ArrayList<>();
     }
 
+    // --- Domain Logic ---
     public boolean canPerform(String action) {
         return permissions != null && permissions.contains(action);
     }
 
-    // Getters and Setters
-    public String getAdminId() {
-        return adminId;
-    }
-
-    public void setAdminId(String adminId) {
-        this.adminId = adminId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
     public List<String> getPermissions() {
@@ -113,14 +52,81 @@ public class Admin {
         this.permissions = permissions;
     }
 
+    // --- Builder Pattern ---
+    public static class Builder {
+        private String userId;
+        private String firstName;
+        private String lastName;
+        private String email;
+        private String employeeId;
+        private List<String> permissions;
+
+        public Builder setUserId(String userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public Builder setFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder setLastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public Builder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder setEmployeeId(String employeeId) {
+            this.employeeId = employeeId;
+            return this;
+        }
+
+        public Builder setPermissions(List<String> permissions) {
+            this.permissions = permissions;
+            return this;
+        }
+
+        public Builder copy(Admin admin) {
+            this.userId = admin.getUserId();
+            this.firstName = admin.getFirstName();
+            this.lastName = admin.getLastName();
+            this.email = admin.getEmail();
+            this.employeeId = admin.employeeId;
+            this.permissions = new ArrayList<>(admin.permissions);
+            return this;
+        }
+
+        public Admin build() {
+            return new Admin(this);
+        }
+    }
+
     @Override
     public String toString() {
         return "Admin{" +
-                "adminId='" + adminId + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
+                "employeeId='" + employeeId + '\'' +
                 ", permissions=" + permissions +
+                ", " + super.toString() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Admin)) return false;
+        if (!super.equals(o)) return false;
+        Admin admin = (Admin) o;
+        return Objects.equals(employeeId, admin.employeeId) &&
+                Objects.equals(permissions, admin.permissions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), employeeId, permissions);
     }
 }
