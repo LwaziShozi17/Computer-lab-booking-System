@@ -1,76 +1,60 @@
 package za.ac.cput.util;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+/*
+ Helper class
+ Author: SM Thwabuse (220246009)
+ Date: 10/08/2025
+ */
 
-public class Helper {
+import java.time.LocalDateTime;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Pattern;
+import java.util.Objects;
+
+public final class Helper {
+    private Helper() {}
+
+    // Pre-compiled patterns for better performance
+    private static final Pattern FACULTY_ID_PATTERN = Pattern.compile("^FAC-[A-Z]{3,20}-\\d{4}$");
+    private static final Pattern COMPUTER_ID_PATTERN = Pattern.compile("^COM-\\d{3}$");
+    private static final String[] VALID_STATUSES = {"CONFIRMED", "CANCELLED", "BOOKED"};
 
     public static boolean isNullOrEmpty(String str) {
-        return str == null || str.trim().isEmpty();
+        return str == null || str.isBlank();
     }
 
     public static boolean isValidFacultyId(String facultyId) {
-        return facultyId != null && facultyId.matches("^FAC-[A-Z]{3,20}-\\d{4}$");
+        return facultyId != null && FACULTY_ID_PATTERN.matcher(facultyId).matches();
     }
 
-    public static String generateFacultyId(String facultyName) {
-        if (isNullOrEmpty(facultyName) || facultyName.trim().length() < 2) {
-            throw new IllegalArgumentException("Faculty name must be at least 2 characters long");
-        }
-
-
-        String[] words = facultyName.trim().split("\\s+");
-        StringBuilder initials = new StringBuilder("FAC-");
-
-
-        for (int i = 0; i < Math.min(words.length, 3); i++) {
-            if (!words[i].isEmpty()) {
-                initials.append(words[i].substring(0, 1).toUpperCase());
-            }
-        }
-
-        // Ensure we have at least 2 initials
-        if (initials.length() < 6) {
-            initials.append("X");
-        }
-
-        return initials + "-" + UUID.randomUUID().toString().substring(0, 4);
+    public static boolean isValidComputerId(String computerId) {
+        return computerId != null && COMPUTER_ID_PATTERN.matcher(computerId).matches();
     }
 
-    public static boolean isValidBookingId(int bookingId) {
-        return bookingId >= 1000 && bookingId <= 9999;
+    public static boolean isValidStatus(String status) {
+        if (status == null) return false;
+        for (String validStatus : VALID_STATUSES) {
+            if (validStatus.equals(status)) return true;
+        }
+        return false;
     }
 
     public static boolean isValidBooking(int studentId, String computerId,
                                          LocalDateTime startTime, LocalDateTime endTime,
                                          String status) {
         return studentId > 0 &&
-                !isNullOrEmpty(computerId) &&
-                computerId.matches("^COM-\\d+$") &&
+                isValidComputerId(computerId) &&
                 startTime != null &&
                 endTime != null &&
                 endTime.isAfter(startTime) &&
-                !isNullOrEmpty(status) &&
-                (status.equals("CONFIRMED") || status.equals("CANCELLED") || status.equals("BOOKED"));
+                isValidStatus(status);
     }
 
-    public static boolean isValidComputerId(String computerId) {
-        return computerId != null && computerId.matches("^COM-\\d{3}$");
-    }
-
-    public static boolean isValidStatus(String status) {
-        return status != null &&
-                (status.equals("CONFIRMED") ||
-                        status.equals("CANCELLED") ||
-                        status.equals("BOOKED"));
+    public static boolean isValidBookingId(int bookingId) {
+        return bookingId >= 1000 && bookingId <= 9999;
     }
 
     public static int generateBookingId() {
-        return 1000 + (int)(Math.random() * 9000);
-    }
-
-
-    public static boolean isValidFacultyName(String facultyName) {
-        return true;
+        return ThreadLocalRandom.current().nextInt(1000, 10000);
     }
 }
