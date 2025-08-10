@@ -1,24 +1,31 @@
 package za.ac.cput.factory;
 
+/*
+ FacultyFactory class
+ Author: SM Thwabuse (220246009)
+ Date: 10/08/2025
+ */
 
 import za.ac.cput.Domain.Faculty;
 import za.ac.cput.util.Helper;
 
-public class FacultyFactory {
+import java.util.Objects;
+
+public final class FacultyFactory {
+    private FacultyFactory() {} // Prevent instantiation
 
     public static Faculty createFaculty(String facultyName) {
-        if (Helper.isNullOrEmpty(facultyName) || facultyName.trim().length() < 3) {
-            throw new IllegalArgumentException("Invalid faculty name");
+        Objects.requireNonNull(facultyName, "Faculty name cannot be null");
+        String trimmedName = facultyName.trim();
+        if (trimmedName.length() < 3) {
+            throw new IllegalArgumentException("Faculty name must be at least 3 characters");
         }
 
-
-        String facultyId =  "FAC-" +
-                facultyName.substring(0, 3).toUpperCase() + "-" +
-                String.format("%04d", (int)(Math.random() * 10000));
+        String facultyId = generateFacultyId(trimmedName);
 
         return new Faculty.Builder()
                 .setFacultyId(facultyId)
-                .setFacultyName(facultyName.trim())
+                .setFacultyName(trimmedName)
                 .build();
     }
 
@@ -26,14 +33,32 @@ public class FacultyFactory {
         if (!Helper.isValidFacultyId(facultyId)) {
             throw new IllegalArgumentException("Invalid faculty ID format");
         }
-        if (Helper.isNullOrEmpty(facultyName) || facultyName.trim().length() < 3) {
-            throw new IllegalArgumentException("Invalid faculty name");
+        Objects.requireNonNull(facultyName, "Faculty name cannot be null");
+        String trimmedName = facultyName.trim();
+        if (trimmedName.length() < 3) {
+            throw new IllegalArgumentException("Faculty name must be at least 3 characters");
         }
 
         return new Faculty.Builder()
                 .setFacultyId(facultyId)
-                .setFacultyName(facultyName.trim())
+                .setFacultyName(trimmedName)
                 .build();
     }
-}
 
+    private static String generateFacultyId(String facultyName) {
+        String[] words = facultyName.split("\\s+");
+        StringBuilder initials = new StringBuilder("FAC-");
+
+        for (int i = 0; i < Math.min(words.length, 3); i++) {
+            if (!words[i].isEmpty()) {
+                initials.append(words[i].charAt(0));
+            }
+        }
+        if (initials.length() < 6) {
+            initials.append("X");
+        }
+        return initials.append("-")
+                .append((int) (Math.random() * 9000) + 1000)
+                .toString();
+    }
+}
