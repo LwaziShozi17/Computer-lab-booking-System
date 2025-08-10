@@ -2,15 +2,10 @@ package za.ac.cput.Domain;
 
 import jakarta.persistence.*;
 import za.ac.cput.Domain.User;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Admin entity representing system administrators who manage bookings and verifications.
- * Extends the User class and adds employee-specific details and permissions.
- */
 @Entity
 @Table(name = "admins")
 public class Admin extends User {
