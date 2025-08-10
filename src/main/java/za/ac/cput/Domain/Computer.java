@@ -1,16 +1,16 @@
 package za.ac.cput.Domain;
 
-/* Computer.java
-Computer POJO class
-Author: Z Jantjies (222809825)
-Date: 11 May 2025 */
+import java.util.Objects;
+
 
 public class Computer {
-    private final String computerId;
-    private final String labId;
-    private final String faculty;
-    private final String status;
-    private final String software;
+    private String computerId;
+    private String labId;
+    private String faculty;
+    private String status; // "Empty" or "Occupied"
+    private String software;
+
+    protected Computer() {}
 
     private Computer(Builder builder) {
         this.computerId = builder.computerId;
@@ -27,27 +27,7 @@ public class Computer {
     public String getStatus() { return status; }
     public String getSoftware() { return software; }
 
-    // Domain Logic
-    public boolean isAvailable() {
-        return "Empty".equals(status);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Computer computer = (Computer) o;
-        return computerId.equals(computer.computerId);
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "Computer[ID=%s, Lab=%s, Status=%s]",
-                computerId, labId, status
-        );
-    }
-
+    // Builder Pattern
     public static class Builder {
         private String computerId;
         private String labId;
@@ -55,44 +35,56 @@ public class Computer {
         private String status;
         private String software;
 
-        public Builder computerId(String computerId) {
+        public Builder setComputerId(String computerId) {
             this.computerId = computerId;
             return this;
         }
 
-        public Builder labId(String labId) {
+        public Builder setLabId(String labId) {
             this.labId = labId;
             return this;
         }
 
-        public Builder faculty(String faculty) {
+        public Builder setFaculty(String faculty) {
             this.faculty = faculty;
             return this;
         }
 
-        public Builder status(String status) {
+        public Builder setStatus(String status) {
             this.status = status;
             return this;
         }
 
-        public Builder software(String software) {
+        public Builder setSoftware(String software) {
             this.software = software;
             return this;
         }
 
         public Computer build() {
-            // Manual validation (no Helper class)
-            if (computerId == null || computerId.trim().isEmpty()) {
-                throw new IllegalArgumentException("Computer ID required");
-            }
-            if (labId == null || labId.trim().isEmpty()) {
-                throw new IllegalArgumentException("Lab ID required");
-            }
-            if (!"Occupied".equals(status) && !"Empty".equals(status)) {
-                throw new IllegalArgumentException("Status must be 'Occupied' or 'Empty'");
-            }
-
             return new Computer(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Computer computer = (Computer) o;
+        return Objects.equals(computerId, computer.computerId) &&
+                Objects.equals(labId, computer.labId) &&
+                Objects.equals(faculty, computer.faculty) &&
+                Objects.equals(status, computer.status) &&
+                Objects.equals(software, computer.software);
+    }
+
+    @Override
+    public String toString() {
+        return "Computer{" +
+                "computerId='" + computerId + '\'' +
+                ", labId='" + labId + '\'' +
+                ", faculty='" + faculty + '\'' +
+                ", status='" + status + '\'' +
+                ", software='" + software + '\'' +
+                '}';
     }
 }

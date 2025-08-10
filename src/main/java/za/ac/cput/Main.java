@@ -1,19 +1,24 @@
 package za.ac.cput;
 
+import za.ac.cput.Domain.Computer;
+import za.ac.cput.Domain.Report;
+import za.ac.cput.factory.ComputerFactory; // Assuming you have a ComputerFactory
+import za.ac.cput.factory.ReportFactory; // Assuming you have a ReportFactory
+import za.ac.cput.Repository.ComputerRepository;
+import za.ac.cput.Repository.ReportRepository;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        // Create a new Computer
+        Computer computer = ComputerFactory.createComputer("C1", "Lab1", "Engineering", "Empty", "Java");
+        ComputerRepository.getRepository().create(computer);
+        System.out.println("Computer Created: " + computer);
+
+
+        // Create a new Report
+        Report report = ReportFactory.createReport("Usage", "Admin1", computer.getComputerId());
+        ReportRepository.getRepository().create(report);
+        System.out.println("Report Created: " + report);
     }
 }
-
