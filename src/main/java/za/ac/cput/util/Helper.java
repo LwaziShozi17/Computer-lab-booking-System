@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 /*
  * Main.java
  * Entry point for CPUT Computer Booking System
- * Author: Lwazi Shozi (Student Number: 230220061)
+ * Author: Lwazi xxxShozi (Student Number: 230220061)
  * Date: 14 June 2025
  */
 public class Helper {
