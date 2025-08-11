@@ -1,23 +1,13 @@
+package za.ac.cput.service;
 
-package za.ac.cput.service.impl;
+import za.ac.cput.Domain.Verification;
+import java.util.List;
+import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-import za.ac.cput.Repository.AdminRepository;
-import za.ac.cput.service.VerificationService;
-
-@Service
-public class VerificationServiceImpl implements VerificationService {
-
-    private final AdminRepository adminRepository;
-
-    public VerificationServiceImpl(AdminRepository adminRepository) {
-        this.adminRepository = adminRepository;
-    }
-
-    @Override
-    public boolean verifyAdminCredentials(String email, String password) {
-        return adminRepository.findAll().stream()
-                .anyMatch(admin -> admin.getEmail().equalsIgnoreCase(email)
-                        && admin.getRole().equalsIgnoreCase(password)); // Replace with hashed password check in real-world apps
-    }
+public interface VerificationService {
+    Verification create(Verification verification);
+    Optional<Verification> read(String id);
+    List<Verification> getAll();
+    Verification update(Verification verification);
+    boolean delete(String id);
 }

@@ -1,6 +1,5 @@
 package za.ac.cput.controller;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,8 +9,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import za.ac.cput.Domain.Admin;
+import za.ac.cput.service.AdminService;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -35,46 +35,51 @@ class AdminControllerTest {
 
     @BeforeEach
     void setUp() {
-        admin = new Admin();
-        admin.setAdminId("A001");
-        admin.setName("John Doe");
-        admin.setEmail("john@example.com");
-        admin.setRole("Super Admin");
+        admin = new Admin.Builder()
+                .setUserId("A001")
+                .setFirstName("John")
+                .setLastName("Doe")
+                .setEmail("john@example.com")
+                .setPassword("password123")
+                .setEmployeeId("EMP001")
+                .setPermissions(List.of("CREATE_BOOKING", "DELETE_BOOKING"))
+                .build();
     }
 
     @Test
     void testCreateAdmin() throws Exception {
-        when(adminService.createAdmin(any(Admin.class))).thenReturn(admin);
+        when(adminService.create(any(Admin.class))).thenReturn(admin);
 
-        mockMvc.perform(post("/api/admin")
+        mockMvc.perform(post("/admins")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(admin)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.adminId").value("A001"))
-                .andExpect(jsonPath("$.name").value("John Doe"));
+                .andExpect(jsonPath("$.userId").value("A001"))
+                .andExpect(jsonPath("$.firstName").value("John"))
+                .andExpect(jsonPath("$.lastName").value("Doe"));
     }
 
     @Test
     void testGetAllAdmins() throws Exception {
-        when(adminService.getAllAdmins()).thenReturn(Arrays.asList(admin));
+        when(adminService.getAll()).thenReturn(List.of(admin));
 
-        mockMvc.perform(get("/api/admin"))
+        mockMvc.perform(get("/admins"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].adminId").value("A001"));
+                .andExpect(jsonPath("$[0].userId").value("A001"));
     }
 
     @Test
     void testGetAdminById() throws Exception {
-        when(adminService.getAdminById("A001")).thenReturn(Optional.of(admin));
+        when(adminService.read("A001")).thenReturn(Optional.of(admin));
 
-        mockMvc.perform(get("/api/admin/A001"))
+        mockMvc.perform(get("/admins/A001"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("John Doe"));
+                .andExpect(jsonPath("$.firstName").value("John"));
     }
 
     @Test
     void testDeleteAdmin() throws Exception {
-        mockMvc.perform(delete("/api/admin/A001"))
+        mockMvc.perform(delete("/admins/A001"))
                 .andExpect(status().isNoContent());
     }
 }

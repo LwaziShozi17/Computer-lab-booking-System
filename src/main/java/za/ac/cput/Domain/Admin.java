@@ -25,7 +25,7 @@ public class Admin extends User {
 
     // Builder-based constructor
     private Admin(Builder builder) {
-        super();
+        super(builder);
         this.employeeId = builder.employeeId;
         this.permissions = builder.permissions != null ? new ArrayList<>(builder.permissions) : new ArrayList<>();
     }
@@ -47,34 +47,14 @@ public class Admin extends User {
         this.permissions = permissions;
     }
 
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
     // --- Builder Pattern ---
-    public static class Builder {
-        private String userId;
-        private String firstName;
-        private String lastName;
-        private String email;
+    public static class Builder extends User.Builder {
         private String employeeId;
         private List<String> permissions;
-
-        public Builder setUserId(String userId) {
-            this.userId = userId;
-            return this;
-        }
-
-        public Builder setFirstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-
-        public Builder setLastName(String lastName) {
-            this.lastName = lastName;
-            return this;
-        }
-
-        public Builder setEmail(String email) {
-            this.email = email;
-            return this;
-        }
 
         public Builder setEmployeeId(String employeeId) {
             this.employeeId = employeeId;
@@ -87,10 +67,7 @@ public class Admin extends User {
         }
 
         public Builder copy(Admin admin) {
-            this.userId = admin.getUserId();
-            this.firstName = admin.getFirstName();
-            this.lastName = admin.getLastName();
-            this.email = admin.getEmail();
+            super.copy(admin);
             this.employeeId = admin.employeeId;
             this.permissions = new ArrayList<>(admin.permissions);
             return this;

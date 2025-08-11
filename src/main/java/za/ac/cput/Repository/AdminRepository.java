@@ -39,4 +39,8 @@ public class AdminRepository {
     public boolean delete(String userId) {
         return adminDB.remove(userId) != null;
     }
+
+    public Map<String, Admin> getAll() {
+        return adminDB;
+    }
 }
