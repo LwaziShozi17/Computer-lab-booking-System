@@ -47,6 +47,10 @@ public class Admin extends User {
         this.permissions = permissions;
     }
 
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
     // --- Builder Pattern ---
     public static class Builder extends User.Builder {
         private String employeeId;

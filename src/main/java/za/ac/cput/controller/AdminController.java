@@ -23,6 +23,11 @@ public class AdminController {
 
     @PostMapping
     public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
+        if (admin == null || admin.getFirstName() == null || admin.getLastName() == null || 
+            admin.getEmail() == null || admin.getPassword() == null || admin.getEmployeeId() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        
         Admin createdAdmin = adminService.create(admin);
         return new ResponseEntity<>(createdAdmin, HttpStatus.CREATED);
     }
@@ -36,7 +41,11 @@ public class AdminController {
 
     @GetMapping("/email/{email}")
     public ResponseEntity<Admin> getAdminByEmail(@PathVariable String email) {
-        // Note: This would need to be implemented in AdminService
+        if (email == null || email.trim().isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        
+        // This would need to be implemented in AdminService
         // For now, returning 404 as placeholder
         return ResponseEntity.notFound().build();
     }
@@ -49,14 +58,20 @@ public class AdminController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Admin> updateAdmin(@PathVariable String id, @RequestBody Admin admin) {
-        // Note: Admin entity uses Builder pattern, direct setters may not be available
-        // This assumes the Admin object has the ID set appropriately
+        if (admin == null || admin.getUserId() == null || !admin.getUserId().equals(id)) {
+            return ResponseEntity.badRequest().build();
+        }
+        
         Admin updatedAdmin = adminService.update(admin);
         return ResponseEntity.ok(updatedAdmin);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAdmin(@PathVariable String id) {
+        if (id == null || id.trim().isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        
         adminService.delete(id);
         return ResponseEntity.noContent().build();
     }
