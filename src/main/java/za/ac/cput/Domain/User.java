@@ -94,6 +94,7 @@ public class User {
         }
 
         public Admin.Builder setEmployeeId(String employeeId) {
+            return null;
         }
     }
 }
