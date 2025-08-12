@@ -1,45 +1,79 @@
 package za.ac.cput.Domain;
 
+import org.jetbrains.annotations.Contract;
 
-import java.util.*;
-
+import java.time.LocalDateTime;
 public class Verification {
-
-
     private final String verificationId;
-    private final Map<String, Rule> verificationRules;
-    private final Map<String, Requirements> facultyRequirements;
-    private final List<Session> activeSessions;
+    private final String userId;
+    private final boolean verified;
+    private final LocalDateTime verificationDate;
 
+    @Contract(pure = true)
     private Verification(Builder builder) {
         this.verificationId = builder.verificationId;
-        this.verificationRules = builder.verificationRules;
-        this.facultyRequirements = builder.facultyRequirements;
-        this.activeSessions = builder.activeSessions;
+        this.userId = builder.userId;
+        this.verified = builder.verified;
+        this.verificationDate = builder.verificationDate;
     }
+
+    public String getVerificationId() {
+        return verificationId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public LocalDateTime getVerificationDate() {
+        return verificationDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Verification{" +
+                "verificationId='" + verificationId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", verified=" + verified +
+                ", verificationDate=" + verificationDate +
+                '}';
+    }
+
     public static class Builder {
         private String verificationId;
-        private Map<String, Rule> verificationRules = new HashMap<>();
-        private Map<String, Requirements> facultyRequirements = new HashMap<>();
-        private List<Session> activeSessions = new ArrayList<>();
+        private String userId;
+        private boolean verified;
+        private LocalDateTime verificationDate;
 
-        public Builder verificationId(String id) {
-            this.verificationId = id;
+        public Builder setVerificationId(String verificationId) {
+            this.verificationId = verificationId;
             return this;
         }
 
-        public Builder verificationRules(Map<String, Rule> rules) {
-            this.verificationRules = rules;
+        public Builder setUserId(String userId) {
+            this.userId = userId;
             return this;
         }
 
-        public Builder facultyRequirements(Map<String, Requirements> requirements) {
-            this.facultyRequirements = requirements;
+        public Builder setVerified(boolean verified) {
+            this.verified = verified;
             return this;
         }
 
-        public Builder activeSessions(List<Session> sessions) {
-            this.activeSessions = sessions;
+        public Builder setVerificationDate(LocalDateTime verificationDate) {
+            this.verificationDate = verificationDate;
+            return this;
+        }
+
+        public Builder copy(Verification verification) {
+            this.verificationId = verification.verificationId;
+            this.userId = verification.userId;
+            this.verified = verification.verified;
+            this.verificationDate = verification.verificationDate;
             return this;
         }
 
@@ -47,45 +81,4 @@ public class Verification {
             return new Verification(this);
         }
     }
-
-    public boolean verifyUser(User user) {
-        for (Rule rule : verificationRules.values()) {
-            if (!rule.apply(user)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean validateBooking(Booking booking) {
-        for (Session session : activeSessions) {
-            if (session.isAvailableFor(booking)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean checkFacultyRequirements(User user) {
-        String faculty = user.getFaculty();
-        Requirements req = facultyRequirements.get(faculty);
-        return req != null && req.meets(user);
-    }
-
-    public String getVerificationId() {
-        return verificationId;
-    }
-
-    public Map<String, Rule> getVerificationRules() {
-        return verificationRules;
-    }
-
-    public Map<String, Requirements> getFacultyRequirements() {
-        return facultyRequirements;
-    }
-
-    public List<Session> getActiveSessions() {
-        return activeSessions;
-    }
-
 }

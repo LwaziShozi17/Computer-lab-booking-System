@@ -12,6 +12,7 @@ public class Student extends User {
     private String currentYear;
 
     private Student() {
+        super();
     } //Default constructor
 
     //Constructor with parameter using builder
@@ -50,14 +51,14 @@ public class Student extends User {
                 '}';
     }
 
-    //Builder class
+
     public static class Builder extends User.Builder {
         private String studentId;
         private String faculty;
         private String enrollmentYear;
         private String currentYear;
 
-        //Builder settters
+
         public Builder setStudentId(String studentId) {
             this.studentId = studentId;
             return this;
@@ -78,7 +79,6 @@ public class Student extends User {
             return this;
         }
 
-        //Copy of builder for set and changing since it is immutable
         public Builder copy(Student student) {
             super.copy(student);
             this.studentId = student.studentId;
