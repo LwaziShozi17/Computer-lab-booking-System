@@ -2,9 +2,7 @@ package za.ac.cput.factory;
 
 import org.junit.jupiter.api.Test;
 import za.ac.cput.Domain.Admin;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class AdminFactoryTest {
