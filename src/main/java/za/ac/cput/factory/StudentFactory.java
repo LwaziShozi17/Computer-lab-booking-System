@@ -33,7 +33,6 @@ public class StudentFactory {
         }
 
         return new Student.Builder()
-                .setUserId(Helper.generateUserId())
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setEmail(email)

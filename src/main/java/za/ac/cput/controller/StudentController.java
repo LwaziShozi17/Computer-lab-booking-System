@@ -5,6 +5,7 @@
 
 package za.ac.cput.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import za.ac.cput.domain.Student;
@@ -18,7 +19,7 @@ import java.util.Map;
 public class StudentController {
     private final StudentService studentService;
 
-   // @Autowired
+    //@Autowired
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
@@ -26,7 +27,7 @@ public class StudentController {
     @PostMapping("/register")
     public ResponseEntity<?> registerStudent(@RequestBody Student student) {
         try {
-            Student registeredStudent = studentService.saveStudent(student);
+            Student registeredStudent = studentService.create(student);
             return ResponseEntity.ok(Map.of("studentId", registeredStudent));
         } catch (RuntimeException e) {
             System.out.println("Student already registered");
@@ -37,7 +38,7 @@ public class StudentController {
     @PostMapping("/read")
     public  ResponseEntity<?> readStudent(@RequestBody Student student) {
         try {
-            Student foundStudent = studentService.readStudent(student.getStudentId());
+            Student foundStudent = studentService.read(student.getStudentId());
             return ResponseEntity.ok(Map.of("student", foundStudent));
         } catch (RuntimeException e) {
             System.out.println("Student was not found");
@@ -59,7 +60,7 @@ public class StudentController {
                     .setLastName("Sibaya")
                     .setFaculty("Informatic and Design")
                     .build();
-            Student updatedStudent = studentService.updateStudent(student);
+            Student updatedStudent = studentService.update(student);
 
             return ResponseEntity.ok(Map.of("student", updatedStudent));
         } catch (RuntimeException e) {

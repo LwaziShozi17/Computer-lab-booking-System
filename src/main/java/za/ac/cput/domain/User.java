@@ -1,109 +1,62 @@
-/*   User.java
-     User domain class
-     Author: SE Sibiya (230975623)
-     Date: 07 August 2025 */
-
 package za.ac.cput.domain;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-public class User {
+@MappedSuperclass
+public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected String userId;
+
     protected String firstName;
     protected String lastName;
     protected String email;
     protected String password;
 
-    public User(){
-    }//Default constructor
+    public User() {}
 
-    //Constructor with builder.
-    public User(Builder builder){
+    public User(Builder<?> builder) {
         this.userId = builder.userId;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.email = builder.email;
         this.password = builder.password;
     }
-    //Getters
-    public String getUserId() {
-        return userId;
-    }
-    public String getFirstName() {
-        return firstName;
-    }
-    public String getLastName() {
-        return lastName;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public String getPassword() {
-        return password;
-    }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId='" + userId + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+    // Getters...
 
-    //Builder class
-    public static class Builder{
-        private String userId;
-        private String firstName;
-        private String lastName;
-        private String email;
-        private String password;
+    public static abstract class Builder<T extends Builder<T>> {
+        protected String userId;
+        protected String firstName;
+        protected String lastName;
+        protected String email;
+        protected String password;
 
-        //Setter using builder
-        public Builder setUserId(String userId){
+        public T setUserId(String userId) {
             this.userId = userId;
-            return this;
+            return self();
         }
-        public Builder setFirstName(String firstName){
+
+        public T setFirstName(String firstName) {
             this.firstName = firstName;
-            return this;
+            return self();
         }
-        public Builder setLastName(String lastName){
+
+        public T setLastName(String lastName) {
             this.lastName = lastName;
-            return this;
+            return self();
         }
-        public Builder setEmail(String email){
+
+        public T setEmail(String email) {
             this.email = email;
-            return this;
+            return self();
         }
-        public Builder setPassword(String password){
+
+        public T setPassword(String password) {
             this.password = password;
-            return this;
-        }
-        public Student.Builder setStudentId(String studentId) {
-            return null;
+            return self();
         }
 
-
-        //Copy of builder for set and changing since it is immutable
-        public Builder copy(User user){
-            this.userId = user.userId;
-            this.firstName = user.firstName;
-            this.lastName = user.lastName;
-            this.email = user.email;
-            this.password = user.password;
-            return this;
-        }
-        public User build(){
-            return new User(this);
-        }
-
-
+        protected abstract T self();
     }
 }

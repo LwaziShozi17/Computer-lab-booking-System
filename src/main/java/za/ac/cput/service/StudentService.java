@@ -10,45 +10,63 @@ import org.springframework.stereotype.Service;
 import za.ac.cput.domain.Student;
 import za.ac.cput.repository.StudentRepository;
 
+import java.util.List;
+
 @Service
-public class StudentService {
-    private StudentRepository studentRepository;
+public class StudentService implements IStudent {
+    private final StudentRepository studentRepository;
 
     @Autowired
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
-    // Method to check if student exists in database and register if not
-    public Student saveStudent(Student student) {
+    @Override
+    public Student create(Student student) {
         if (studentRepository.findByStudentId(student.getStudentId()) != null) {
             throw new RuntimeException("Student already registered");
         }
-        // Save the student infovif not already registered
-        return studentRepository.save(student);
+        // Save the student if not already registered
+        return this.studentRepository.save(student);
     }
 
-    // Method to find student by studentId
-    public Student readStudent(String studentId) {
-        Student student = studentRepository.findByStudentId(studentId);
-        if (student == null) {
+    @Override
+    public Student read(String s) {
+        if (studentRepository.findByStudentId(s) == null) {
             throw new RuntimeException("Student not found");
         }
-        System.out.println("Student found: " + student.getFirstName());
-        return student;
+        System.out.println("Student found: ");
+        return this.studentRepository.findByStudentId(s);
     }
 
-    // Method to update student information
-    public Student updateStudent(Student student) {
+    @Override
+    public Student update(Student student) {
         if (studentRepository.findByStudentId(student.getStudentId()) == null) {
             throw new RuntimeException("Student not found for update");
         }
         return studentRepository.save(student);
     }
 
+    @Override
+    public Student delete(String s) {
+        Student student = studentRepository.findByStudentId(s);
+        if (student == null) {
+            throw new RuntimeException("Student not found for deletion");
+        }
+        studentRepository.delete(student);
+        return student;
+    }
+
+
+    @Override
+    public List<Student> findAllStudent() {
+        return this.studentRepository.findAll();
+    }
+
     // Method to find student by studentId
     public Student findByStudentId(String studentId) {
         return studentRepository.findByStudentId(studentId);
     }
+
 
 }

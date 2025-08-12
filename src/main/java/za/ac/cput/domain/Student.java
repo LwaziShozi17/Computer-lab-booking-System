@@ -1,74 +1,45 @@
-/*   Student.java
-     Student domain class
-     Author: SE Sibiya (230975623)
-     Date: 07 August 2025 */
-
 package za.ac.cput.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table (name= "Student")
-public class Student extends User {
+@Table(name = "Student")
+public class Student {
     @Id
     private String studentId;
+    private String firstName;
+    private String lastName;
     private String faculty;
     private String enrollmentYear;
     private String currentYear;
+    private String email;
+    private String password;
 
+    public Student() {}
 
-    public Student() {
-    } //Default constructor
-
-    //Constructor with parameter using builder
     private Student(Builder builder) {
-        super(builder);
         this.studentId = builder.studentId;
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
         this.faculty = builder.faculty;
         this.enrollmentYear = builder.enrollmentYear;
         this.currentYear = builder.currentYear;
+        this.email = builder.email;
+        this.password = builder.password;
     }
 
-    //Getters
-    @Override
-    public String getUserId() {
-        return super.getUserId();
-    }
-    @Override
-    public String getFirstName() {
-        return super.getFirstName();
-    }
-    @Override
-    public String getLastName() {
-        return super.getLastName();
-    }
-    @Override
-    public String getEmail() {
-        return super.getEmail();
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public String getFaculty() {
-        return faculty;
-    }
-
-    public String getEnrollmentYear() {
-        return enrollmentYear;
-    }
-
-    public String getCurrentYear() {
-        return currentYear;
-    }
+    public String getStudentId() { return studentId; }
+    public String getFirstName() { return firstName; }
+    public String getLastName() { return lastName; }
+    public String getFaculty() { return faculty; }
+    public String getEnrollmentYear() { return enrollmentYear; }
+    public String getCurrentYear() { return currentYear; }
+    public String getEmail() { return email; }
+    public String getPassword() { return password; }
 
     @Override
     public String toString() {
         return "Student{" +
-                ", userId='" + userId + '\'' +
                 "studentId='" + studentId + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -80,40 +51,26 @@ public class Student extends User {
                 '}';
     }
 
-    //Builder class
-    public static class Builder extends User.Builder {
+    public static class Builder {
         private String studentId;
+        private String firstName;
+        private String lastName;
         private String faculty;
         private String enrollmentYear;
         private String currentYear;
-
-        //Builder setters
-        @Override
-        public Builder setUserId(String userId) {
-            super.setUserId(userId);
-            return this;
-        }
-
-        @Override
-        public Builder setFirstName(String firstName) {
-            super.setFirstName(firstName);
-            return this;
-        }
-
-        @Override
-        public Builder setLastName(String lastName) {
-            super.setLastName(lastName);
-            return this;
-        }
-
-        @Override
-        public Builder setPassword(String password){
-            super.setPassword(password);
-            return this;
-        }
+        private String email;
+        private String password;
 
         public Builder setStudentId(String studentId) {
             this.studentId = studentId;
+            return this;
+        }
+        public Builder setFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+        public Builder setLastName(String lastName) {
+            this.lastName = lastName;
             return this;
         }
 
@@ -131,10 +88,21 @@ public class Student extends User {
             this.currentYear = currentYear;
             return this;
         }
+        public Builder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+        public Builder setPassword(String password) {
+            this.password = password;
+            return this;
+        }
 
-        //Copy of builder for set and changing since it is immutable
+        // builder copy method
         public Builder copy(Student student) {
-            super.copy(student);
+            this.firstName = student.firstName;
+            this.lastName = student.lastName;
+            this.email = student.email;
+            this.password = student.password;
             this.studentId = student.studentId;
             this.faculty = student.faculty;
             this.enrollmentYear = student.enrollmentYear;
