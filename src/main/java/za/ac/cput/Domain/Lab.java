@@ -1,5 +1,6 @@
 package za.ac.cput.Domain;
 
+//Thuso Siduka 220041776
 public class Lab {
 
 
@@ -38,7 +39,7 @@ public class Lab {
         return closingHours;
     }
 
-    public class Builder{
+    public static class Builder{
         private Long labId;
 
         private String location;
