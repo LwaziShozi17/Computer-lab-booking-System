@@ -1,4 +1,4 @@
-package za.ac.cput.Controller;
+package za.ac.cput.controller;
 
 import org.junit.jupiter.api.*;
 import za.ac.cput.Domain.Maintenance;
@@ -17,7 +17,7 @@ class MaintenanceControllerTest {
 
     @BeforeEach
     void setUp() {
-        controller = new MaintenanceController();
+        controller = new za.ac.cput.Controller.MaintenanceController();
         maintenance = MaintenanceFactory.createMaintenance(
                 "MT-001",
                 "SW-001",

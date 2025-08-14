@@ -7,8 +7,6 @@ import za.ac.cput.Domain.Maintenance;
 import za.ac.cput.Factory.MaintenanceFactory;
 
 /* Sithandiwe Ntombela 221805265 */
-
-
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MaintenanceServiceTest {
 
     @Autowired
-    private MaintenanceService service;
+    private za.ac.cput.Service.MaintenanceService service;
 
     private Maintenance maintenance;
 
