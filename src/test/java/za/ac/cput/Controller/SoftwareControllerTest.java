@@ -1,77 +1,147 @@
 package za.ac.cput.Controller;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import za.ac.cput.Domain.Software;
-import za.ac.cput.Factory.SoftwareFactory;
+import za.ac.cput.Service.SoftwareService;
 
-import java.util.Optional;
-
-/* Sithandiwe Ntombela 221805265 */
-
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class SoftwareControllerTest {
-    private SoftwareController controller;
-    private Software software;
+
+    @Mock
+    private SoftwareService softwareService;
+
+    @InjectMocks
+    private SoftwareController softwareController;
+
+    private Software software1;
+    private Software software2;
 
     @BeforeEach
     void setUp() {
-        controller = new SoftwareController();
-        software = SoftwareFactory.createSoftware(
-                "SW-001",
-                "IntelliJ IDEA",
-                "2023.2",
-                "Commercial"
-        );
-    }
-
-    @Test
-    @Order(1)
-    void addSoftware() {
-        controller.addSoftware(software);
-        assertEquals(1, controller.getAllSoftware().size());
-        System.out.println("Added software: " + software);
-    }
-
-    @Test
-    @Order(2)
-    void getSoftwareById() {
-        controller.addSoftware(software);
-        Optional<Software> found = controller.getSoftwareById("SW-001");
-        assertTrue(found.isPresent());
-        System.out.println("Found software: " + found.get());
-    }
-
-    @Test
-    @Order(3)
-    void updateSoftware() {
-        controller.addSoftware(software);
-        Software updated = new Software.Builder()
-                .copy(software)
-                .setVersion("2023.3")
+        MockitoAnnotations.openMocks(this);
+        
+        software1 = new Software.Builder()
+                .setSoftwareId("1")
+                .setName("Visual Studio Code")
+                .setVersion("1.85.0")
+                .setLicenseType("MIT")
                 .build();
-
-        controller.updateSoftware("SW-001", updated);
-        assertEquals("2023.3",
-                controller.getSoftwareById("SW-001").get().getVersion());
-        System.out.println("Updated software: " + updated);
+        
+        software2 = new Software.Builder()
+                .setSoftwareId("2")
+                .setName("IntelliJ IDEA")
+                .setVersion("2023.3")
+                .setLicenseType("Commercial")
+                .build();
     }
 
     @Test
-    @Order(4)
-    void deleteSoftware() {
-        controller.addSoftware(software);
-        controller.deleteSoftware("SW-001");
-        assertEquals(0, controller.getAllSoftware().size());
-        System.out.println("Software deleted");
+    void create() {
+        when(softwareService.create(any(Software.class))).thenReturn(software1);
+        
+        ResponseEntity<Software> response = softwareController.create(software1);
+        
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals("Visual Studio Code", response.getBody().getName());
+        verify(softwareService, times(1)).create(software1);
     }
 
     @Test
-    @Order(5)
-    void getAllSoftware() {
-        controller.addSoftware(software);
-        assertEquals(1, controller.getAllSoftware().size());
-        System.out.println("All software: " + controller.getAllSoftware());
+    void read() {
+        when(softwareService.read("1")).thenReturn(software1);
+        
+        ResponseEntity<Software> response = softwareController.read("1");
+        
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals("1", response.getBody().getSoftwareId());
+    }
+
+    @Test
+    void readNotFound() {
+        when(softwareService.read("999")).thenReturn(null);
+        
+        ResponseEntity<Software> response = softwareController.read("999");
+        
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertNull(response.getBody());
+    }
+
+    @Test
+    void update() {
+        when(softwareService.update(any(Software.class))).thenReturn(software1);
+        
+        ResponseEntity<Software> response = softwareController.update(software1);
+        
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+    }
+
+    @Test
+    void delete() {
+        when(softwareService.delete("1")).thenReturn(true);
+        
+        ResponseEntity<Boolean> response = softwareController.delete("1");
+        
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.getBody());
+    }
+
+    @Test
+    void deleteNotFound() {
+        when(softwareService.delete("999")).thenReturn(false);
+        
+        ResponseEntity<Boolean> response = softwareController.delete("999");
+        
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertFalse(response.getBody());
+    }
+
+    @Test
+    void getAll() {
+        List<Software> softwareList = Arrays.asList(software1, software2);
+        when(softwareService.getAll()).thenReturn(softwareList);
+        
+        ResponseEntity<List<Software>> response = softwareController.getAll();
+        
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(2, response.getBody().size());
+    }
+
+    @Test
+    void findByName() {
+        List<Software> softwareList = Arrays.asList(software1);
+        when(softwareService.findByName("Visual")).thenReturn(softwareList);
+        
+        ResponseEntity<List<Software>> response = softwareController.findByName("Visual");
+        
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(1, response.getBody().size());
+    }
+
+    @Test
+    void findByVersion() {
+        List<Software> softwareList = Arrays.asList(software1);
+        when(softwareService.findByVersion("1.85.0")).thenReturn(softwareList);
+        
+        ResponseEntity<List<Software>> response = softwareController.findByVersion("1.85.0");
+        
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(1, response.getBody().size());
     }
 }

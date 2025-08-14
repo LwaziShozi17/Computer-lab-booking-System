@@ -1,48 +1,84 @@
 package za.ac.cput.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import za.ac.cput.Domain.Software;
-import java.util.ArrayList;
+import za.ac.cput.Service.SoftwareService;
+
 import java.util.List;
-import java.util.Optional;
 
-/* Sithandiwe Ntombela 221805265 */
-
-
+@RestController
+@RequestMapping("/api/software")
 public class SoftwareController {
-    private final List<Software> softwareList;
 
-    public SoftwareController() {
-        this.softwareList = new ArrayList<>();
+    private final SoftwareService softwareService;
+
+    @Autowired
+    public SoftwareController(SoftwareService softwareService) {
+        this.softwareService = softwareService;
     }
 
-    // Create a new Software entry
-    public void addSoftware(Software software) {
-        softwareList.add(software);
+    @PostMapping("/create")
+    public ResponseEntity<Software> create(@RequestBody Software software) {
+        try {
+            Software createdSoftware = softwareService.create(software);
+            return new ResponseEntity<>(createdSoftware, HttpStatus.CREATED);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
-    // Read all Software entries
-    public List<Software> getAllSoftware() {
-        return new ArrayList<>(softwareList);
+    @GetMapping("/read/{id}")
+    public ResponseEntity<Software> read(@PathVariable String id) {
+        Software software = softwareService.read(id);
+        if (software != null) {
+            return new ResponseEntity<>(software, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
-    // Find a Software entry by ID
-    public Optional<Software> getSoftwareById(String softwareId) {
-        return softwareList.stream()
-                .filter(software -> software.getSoftwareId().equals(softwareId))
-                .findFirst();
+    @PutMapping("/update")
+    public ResponseEntity<Software> update(@RequestBody Software software) {
+        try {
+            Software updatedSoftware = softwareService.update(software);
+            if (updatedSoftware != null) {
+                return new ResponseEntity<>(updatedSoftware, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
-    // Update a Software entry
-    public void updateSoftware(String softwareId, Software updatedSoftware) {
-        Optional<Software> existingSoftware = getSoftwareById(softwareId);
-        existingSoftware.ifPresent(software -> {
-            softwareList.remove(software);
-            softwareList.add(updatedSoftware);
-        });
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable String id) {
+        boolean deleted = softwareService.delete(id);
+        if (deleted) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
     }
 
-    // Delete a Software entry
-    public void deleteSoftware(String softwareId) {
-        softwareList.removeIf(software -> software.getSoftwareId().equals(softwareId));
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Software>> getAll() {
+        List<Software> softwareList = softwareService.getAll();
+        return new ResponseEntity<>(softwareList, HttpStatus.OK);
+    }
+
+    @GetMapping("/findByName/{name}")
+    public ResponseEntity<List<Software>> findByName(@PathVariable String name) {
+        List<Software> softwareList = softwareService.findByName(name);
+        return new ResponseEntity<>(softwareList, HttpStatus.OK);
+    }
+
+    @GetMapping("/findByVersion/{version}")
+    public ResponseEntity<List<Software>> findByVersion(@PathVariable String version) {
+        List<Software> softwareList = softwareService.findByVersion(version);
+        return new ResponseEntity<>(softwareList, HttpStatus.OK);
     }
 }
