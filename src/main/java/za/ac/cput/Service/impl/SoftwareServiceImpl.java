@@ -1,14 +1,14 @@
-package za.ac.cput.Service.impl;
+package za.ac.cput.service.impl;
 
 import org.springframework.stereotype.Service;
 import za.ac.cput.Domain.Software;
-import za.ac.cput.Service.SoftwareService;
+import za.ac.cput.service.SoftwareService;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class SoftwareServiceImpl implements SoftwareService {
+public class SoftwareServiceImpl implements za.ac.cput.service.impl.SoftwareService {
 
     private final Map<String, Software> softwareDatabase = new HashMap<>();
 
@@ -17,13 +17,13 @@ public class SoftwareServiceImpl implements SoftwareService {
         if (software == null) {
             throw new IllegalArgumentException("Software cannot be null");
         }
-        
+
         String id = UUID.randomUUID().toString();
         Software newSoftware = new Software.Builder()
                 .copy(software)
                 .setSoftwareId(id)
                 .build();
-        
+
         softwareDatabase.put(id, newSoftware);
         return newSoftware;
     }
@@ -41,11 +41,11 @@ public class SoftwareServiceImpl implements SoftwareService {
         if (software == null || software.getSoftwareId() == null) {
             throw new IllegalArgumentException("Software and ID cannot be null");
         }
-        
+
         if (!softwareDatabase.containsKey(software.getSoftwareId())) {
             throw new IllegalArgumentException("Software with ID " + software.getSoftwareId() + " not found");
         }
-        
+
         softwareDatabase.put(software.getSoftwareId(), software);
         return software;
     }
@@ -55,7 +55,7 @@ public class SoftwareServiceImpl implements SoftwareService {
         if (id == null || id.trim().isEmpty()) {
             throw new IllegalArgumentException("ID cannot be null or empty");
         }
-        
+
         return softwareDatabase.remove(id) != null;
     }
 
@@ -69,9 +69,9 @@ public class SoftwareServiceImpl implements SoftwareService {
         if (name == null || name.trim().isEmpty()) {
             return new ArrayList<>();
         }
-        
+
         return softwareDatabase.values().stream()
-                .filter(software -> software.getName() != null && 
+                .filter(software -> software.getName() != null &&
                         software.getName().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());
     }
@@ -81,10 +81,15 @@ public class SoftwareServiceImpl implements SoftwareService {
         if (version == null || version.trim().isEmpty()) {
             return new ArrayList<>();
         }
-        
+
         return softwareDatabase.values().stream()
-                .filter(software -> software.getVersion() != null && 
+                .filter(software -> software.getVersion() != null &&
                         software.getVersion().equalsIgnoreCase(version))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Software saveSoftware(Software software) {
+        return create(software);
     }
 }

@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SoftwareServiceTest {
 
     @Autowired
-    private SoftwareService service;
+    private za.ac.cput.Service.SoftwareService service;
 
     private Software software;
 

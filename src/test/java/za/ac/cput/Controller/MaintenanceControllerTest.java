@@ -12,7 +12,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MaintenanceControllerTest {
-    private MaintenanceController controller;
+    private za.ac.cput.Controller.MaintenanceController controller;
     private Maintenance maintenance;
 
     @BeforeEach
