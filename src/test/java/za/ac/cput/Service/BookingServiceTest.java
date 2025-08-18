@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import za.ac.cput.Domain.Booking;
 import za.ac.cput.Repository.BookingRepository;
-import za.ac.cput.Service.impl.BookingServiceImpl;
+import za.ac.cput.Service.BookingService;
 
 import java.util.Arrays;
 import java.util.List;

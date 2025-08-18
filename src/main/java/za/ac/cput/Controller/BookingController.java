@@ -28,7 +28,7 @@ public class BookingController {
 
     @GetMapping("/read/{id}")
     public ResponseEntity<Booking> read(@PathVariable Integer id) {
-        Booking booking = bookingService.read(id);
+        Booking booking = bookingService.read(Long.valueOf(id));
         if (booking != null) {
             return new ResponseEntity<>(booking, HttpStatus.OK);
         }
@@ -46,7 +46,7 @@ public class BookingController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        boolean deleted = bookingService.delete(id);
+        boolean deleted = bookingService.delete(Long.valueOf(id));
         if (deleted) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -61,7 +61,7 @@ public class BookingController {
 
     @GetMapping("/findByStudentId/{studentId}")
     public ResponseEntity<List<Booking>> findByStudentId(@PathVariable int studentId) {
-        List<Booking> bookings = bookingService.findByStudentId(studentId);
+        List<Booking> bookings = bookingService.findByStudentId(Long.valueOf(studentId));
         return new ResponseEntity<>(bookings, HttpStatus.OK);
     }
 

@@ -1,4 +1,4 @@
-package za.ac.cput.factory;
+package za.ac.cput.Factory;
 /*
  * Main.java
  * Entry point for CPUT Computer Booking System

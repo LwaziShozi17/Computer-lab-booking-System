@@ -1,4 +1,4 @@
-package za.ac.cput.factory;
+package za.ac.cput.Factory;
 
 import za.ac.cput.Domain.Report;
 import java.time.LocalDate;
