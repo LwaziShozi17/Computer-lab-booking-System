@@ -1,6 +1,6 @@
 package za.ac.cput.Domain;
 
-import org.jetbrains.annotations.Contract;
+
 
 import java.time.LocalDateTime;
 public class Verification {
@@ -9,7 +9,7 @@ public class Verification {
     private final boolean verified;
     private final LocalDateTime verificationDate;
 
-    @Contract(pure = true)
+
     private Verification(Builder builder) {
         this.verificationId = builder.verificationId;
         this.userId = builder.userId;

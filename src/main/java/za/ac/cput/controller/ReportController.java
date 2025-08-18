@@ -1,4 +1,4 @@
-package za.ac.cput.controller;
+package za.ac.cput.Controller;
 
 import za.ac.cput.Domain.Report;
 import za.ac.cput.service.ReportService;

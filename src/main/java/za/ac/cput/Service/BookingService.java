@@ -40,4 +40,8 @@ public class BookingService {
     public List<Booking> findByStudentId(Long studentId) {
         return bookingRepository.findByStudentId(studentId);
     }
+
+    public List<Booking> findByComputerId(String computerId) {
+        return bookingRepository.findByComputerId(computerId);
+    }
 }

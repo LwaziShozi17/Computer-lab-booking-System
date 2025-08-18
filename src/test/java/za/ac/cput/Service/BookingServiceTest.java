@@ -22,7 +22,7 @@ class BookingServiceTest {
     private BookingRepository bookingRepository;
 
     @InjectMocks
-    private BookingServiceImpl bookingService;
+    private BookingService bookingService;
 
     @BeforeEach
     void setUp() {

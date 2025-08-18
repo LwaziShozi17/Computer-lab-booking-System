@@ -22,7 +22,7 @@ class FacultyServiceTest {
     private FacultyRepository facultyRepository;
 
     @InjectMocks
-    private FacultyServiceImpl facultyService;
+    private FacultyService facultyService;
 
     @BeforeEach
     void setUp() {

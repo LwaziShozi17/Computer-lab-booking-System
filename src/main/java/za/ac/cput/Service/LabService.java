@@ -36,4 +36,8 @@ public class LabService {
     public List<Lab> getAll() {
         return labRepository.findAll();
     }
+
+    public List<Lab> findByLocation(String location) {
+        return labRepository.findByLocation(location);
+    }
 }
