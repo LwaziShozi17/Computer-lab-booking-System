@@ -13,57 +13,39 @@ import za.ac.cput.service.StudentService;
 
 import java.util.Map;
 
-
-@CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/student.com")
+@RestController
+@CrossOrigin(origins = "*")
+@RequestMapping("/http/cputlibrary.com")
 public class StudentController {
     private final StudentService studentService;
 
-    //@Autowired
+    @Autowired
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/SignUp")
     public ResponseEntity<?> registerStudent(@RequestBody Student student) {
         try {
             Student registeredStudent = studentService.create(student);
             return ResponseEntity.ok(Map.of("studentId", registeredStudent));
         } catch (RuntimeException e) {
-            System.out.println("Student already registered");
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+            System.out.println("Student already registered" + e.getMessage());
+            return ResponseEntity.badRequest().body(Map.of("error11", e.getMessage()));
         }
     }
 
-    @PostMapping("/read")
-    public  ResponseEntity<?> readStudent(@RequestBody Student student) {
+    @PostMapping("/Login")
+    public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
+        String email = credentials.get("email");
+        String password = credentials.get("password");
         try {
-            Student foundStudent = studentService.read(student.getStudentId());
-            return ResponseEntity.ok(Map.of("student", foundStudent));
+            Student student = studentService.validateUserLogIn(email, password);
+            return ResponseEntity.ok(Map.of(
+                    "studentId", student.getStudentId(),
+                    "firstName", student.getFirstName()));
         } catch (RuntimeException e) {
-            System.out.println("Student was not found");
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-        }
-    }
-
-    @PostMapping("/update")
-    public ResponseEntity<?> updateStudent(
-            @RequestParam("studentId") String studentId) {
-        try {
-            Student student = studentService.findByStudentId(studentId);
-            if (student == null) {
-                throw new RuntimeException("Student not found for update");
-            }
-            // Update the student information as needed
-            student = new Student.Builder()
-                    .copy(student)
-                    .setLastName("Sibaya")
-                    .setFaculty("Informatic and Design")
-                    .build();
-            Student updatedStudent = studentService.update(student);
-
-            return ResponseEntity.ok(Map.of("student", updatedStudent));
-        } catch (RuntimeException e) {
+            System.out.println("Login failed: " + e.getMessage());
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }

@@ -31,12 +31,12 @@ public class StudentService implements IStudent {
     }
 
     @Override
-    public Student read(String s) {
-        if (studentRepository.findByStudentId(s) == null) {
+    public Student read(Long aLong) {
+        if (studentRepository.findByStudentId(aLong) == null) {
             throw new RuntimeException("Student not found");
         }
         System.out.println("Student found: ");
-        return this.studentRepository.findByStudentId(s);
+        return this.studentRepository.findByStudentId(aLong);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class StudentService implements IStudent {
     }
 
     @Override
-    public Student delete(String s) {
-        Student student = studentRepository.findByStudentId(s);
+    public Student delete(Long aLong) {
+        Student student = studentRepository.findByStudentId(aLong);
         if (student == null) {
             throw new RuntimeException("Student not found for deletion");
         }
@@ -63,10 +63,12 @@ public class StudentService implements IStudent {
         return this.studentRepository.findAll();
     }
 
-    // Method to find student by studentId
-    public Student findByStudentId(String studentId) {
-        return studentRepository.findByStudentId(studentId);
+    // Method to validate user login credentials
+    public Student validateUserLogIn(String email, String password) {
+        Student student = studentRepository.findByEmail(email);
+        if (student == null || !student.getPassword().equals(password)) {
+            throw new RuntimeException("Invalid email or password");
+        }
+        return student;
     }
-
-
 }

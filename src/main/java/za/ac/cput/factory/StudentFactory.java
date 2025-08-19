@@ -37,7 +37,7 @@ public class StudentFactory {
                 .setLastName(lastName)
                 .setEmail(email)
                 .setPassword(password)
-                .setStudentId(studentId)
+                .setStudentId(Long.valueOf(studentId))
                 .setFaculty(faculty)
                 .setEnrollmentYear(enrollmentYear)
                 .setCurrentYear(currentYear)

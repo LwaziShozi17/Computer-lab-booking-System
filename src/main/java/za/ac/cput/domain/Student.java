@@ -1,23 +1,30 @@
 package za.ac.cput.domain;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "Student")
 public class Student {
     @Id
-    private String studentId;
+    private Long studentId;
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+    @Column(name = "faculty", nullable = false)
     private String faculty;
+    @Column(name = "enrollment_year", nullable = false)
     private String enrollmentYear;
+    @Column(name = "current_year", nullable = false)
     private String currentYear;
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
+    @Column(name = "password", nullable = false)
     private String password;
 
-    public Student() {}
+    protected Student() {}
 
-    private Student(Builder builder) {
+    public Student(Builder builder) {
         this.studentId = builder.studentId;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
@@ -28,7 +35,8 @@ public class Student {
         this.password = builder.password;
     }
 
-    public String getStudentId() { return studentId; }
+    // Getters
+    public Long getStudentId() { return studentId; }
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }
     public String getFaculty() { return faculty; }
@@ -36,6 +44,7 @@ public class Student {
     public String getCurrentYear() { return currentYear; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
+
 
     @Override
     public String toString() {
@@ -51,8 +60,9 @@ public class Student {
                 '}';
     }
 
+    // Builder class for Student
     public static class Builder {
-        private String studentId;
+        private Long studentId;
         private String firstName;
         private String lastName;
         private String faculty;
@@ -61,7 +71,8 @@ public class Student {
         private String email;
         private String password;
 
-        public Builder setStudentId(String studentId) {
+        // setters for Builder
+        public Builder setStudentId(Long studentId) {
             this.studentId = studentId;
             return this;
         }

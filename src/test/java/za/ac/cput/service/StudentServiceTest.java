@@ -19,7 +19,7 @@ class StudentServiceTest {
     private IStudent studentService;
 
     private Student student = StudentFactory.createStudent(
-            "Sandile", "Sotobe", "280975623@mycput.ac.za", "Sib040", "280975623", "ICT : AppDev", "2024", "Third Year");
+            "Sandile", "Sotobe", "260975623@mycput.ac.za", "Sib040", "260975623", "ICT : AppDev", "2024", "Third Year");
 
     @Test
     @Order(1)
