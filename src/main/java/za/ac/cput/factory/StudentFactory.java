@@ -12,7 +12,7 @@ import za.ac.cput.util.Helper;
 
 public class StudentFactory {
     public static Student createStudent(String firstName, String lastName,
-                                        String email, String password, String studentId,
+                                        String email, String password, Long studentId,
                                         String faculty, String enrollmentYear,
                                         String currentYear) {
 
@@ -21,7 +21,7 @@ public class StudentFactory {
                 || Helper.isNullOrEmpty(lastName)
                 || Helper.isNullOrEmpty(email)
                 || Helper.isNullOrEmpty(password)
-                || Helper.isNullOrEmpty(studentId)
+                || Helper.isNullOrEmpty(String.valueOf(studentId))
                 || Helper.isNullOrEmpty(faculty)
                 || Helper.isNullOrEmpty(enrollmentYear)
                 || Helper.isNullOrEmpty(currentYear)) {

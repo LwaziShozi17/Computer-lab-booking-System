@@ -16,7 +16,7 @@ class StudentFactoryTest {
         void createStudent() {
             Student student = StudentFactory.createStudent(
                     "Sandile", "Sibiya", "230975623@mycput.ac.za",
-                    "Mth040", "230975623 ","ICT", "2023", "Third Year");
+                    "Mth040", Long.valueOf("230975623"),"ICT", "2023", "Third Year");
             assertNotNull(student);
             System.out.println(student);
         }
