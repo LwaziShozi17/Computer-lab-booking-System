@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LoadBooking</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #d9d9d9;
+      text-align: center;
+    }
+
+    /* Menu icon */
+    .menu-icon {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: white;
+      padding: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .menu-icon div {
+      width: 25px;
+      height: 3px;
+      background-color: black;
+      margin: 5px 0;
+    }
+    /* CPUT Logo */
+    .icon {
+      max-width: 180px;
+      margin-top: 30px;
+    }
+
+    /* Logo */
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .logo span {
+      color: #2f4db3;
+    }
+    .tagline {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+
+    .toggle-buttons {
+      Width: 95%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-left: 40px;
+      background-color: #b3b3b3;
+    }
+
+    .toggle-buttons button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      background-color: transparent;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .toggle-buttons button.active {
+      background-color: black;
+      color: white;
+    }
+
+    .form-section {
+      margin-top: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+
+    input {
+      width: 93.5%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .search-btn {
+      width: 95%;
+      padding: 10px;
+      background-color: black;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+
+    /* Bottom navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #0d1eb6;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px 0;
+      color: white;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .nav-item i {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .book-btn img {
+      width: 50px;
+      height: 40px;
+    }
+
+
+    /* Book button in center */
+    .book-btn {
+      background-color: white;
+      color: black;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      position: relative;
+      top: -25px;
+      border: 3px solid black;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .book-btn i {
+      font-size: 18px;
+      margin-bottom: 3px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Menu icon -->
+<div class="menu-icon">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<!-- CPUT Logo -->
+<img src="https://vectorseek.com/wp-content/uploads/2023/08/Cput-Logo-Vector.svg-.png" alt="CPUT Logo" class="icon"/>
+
+
+<!-- Logo -->
+<div class="logo">Lab<span>Mate</span></div>
+<div class="tagline">For the love of computing</div>
+
+<div class="toggle-buttons">
+  <button id="bookingBtn" class="active">Booking ID</button>
+  <button id="studentBtn">Student Number</button>
+</div>
+
+<!-- Booking ID form -->
+<div id="bookingForm" class="form-section">
+  <p>Please enter booking ID to check for current load booking that you booked</p>
+  <label for="bookingId">Booking ID</label>
+  <input type="text" id="bookingId" placeholder="Enter Booking ID" />
+  <button class="search-btn">SEARCH</button>
+</div>
+
+<!-- Student Number form -->
+<div id="studentForm" class="form-section" style="display:none;">
+  <p>Please enter student number to check for current load booking that you have booked.</p>
+  <label for="studentNumber">Student Number</label>
+  <input type="text" id="studentNumber" placeholder="Enter Student Number" />
+  <button class="search-btn">SEARCH</button>
+</div>
+</div>
+
+
+<!-- Bottom nav -->
+<div class="bottom-nav">
+  <div class="nav-item">
+    <i class="fa-solid fa-house"></i>
+    HOME
+  </div>
+  <div class="nav-item">
+    <i class="fa-solid fa-user"></i>
+    PROFILE
+  </div>
+  <div class="book-btn">
+    <img src="https://static.vecteezy.com/system/resources/previews/010/366/243/large_2x/computer-icon-transparent-free-png.png" alt="book">
+    BOOK
+  </div>
+  <div class="nav-item">
+    <i class="fa-solid fa-list"></i>
+    LOAD BOOKING
+  </div>
+  <div class="nav-item">
+    <i class="fa-solid fa-circle-info"></i>
+    ABOUT
+  </div>
+</div>
+
+<script>
+  // function for navigation bar to reference
+  document.addEventListener('DOMContentLoaded', () => {
+    // Select navigation items
+    const homeNav = document.querySelector('.bottom-nav .nav-item:nth-child(1)');
+    const profileNav = document.querySelector('.bottom-nav .nav-item:nth-child(2)');
+    const bookBtn = document.querySelector('.bottom-nav .book-btn');
+    const loadBookingNav = document.querySelector('.bottom-nav .nav-item:nth-child(4)');
+    const aboutNav = document.querySelector('.bottom-nav .nav-item:nth-child(5)');
+
+    // Add event listeners for navigation
+    homeNav.addEventListener('click', () => {
+      window.location.href = 'Home.html';
+    });
+
+    profileNav.addEventListener('click', () => {
+      window.location.href = 'Profile.html';
+    });
+
+    bookBtn.addEventListener('click', () => {
+      window.location.href = 'Book.html';
+    });
+
+    loadBookingNav.addEventListener('click', () => {
+      window.location.href = 'LoadBooking.html';
+    });
+
+    aboutNav.addEventListener('click', () => {
+      window.location.href = 'About.html';
+    });
+  });
+
+  //
+  const bookingBtn = document.getElementById('bookingBtn');
+  const studentBtn = document.getElementById('studentBtn');
+  const bookingForm = document.getElementById('bookingForm');
+  const studentForm = document.getElementById('studentForm');
+
+  bookingBtn.addEventListener('click', () => {
+    bookingBtn.classList.add('active');
+    studentBtn.classList.remove('active');
+    bookingForm.style.display = 'block';
+    studentForm.style.display = 'none';
+  });
+
+  studentBtn.addEventListener('click', () => {
+    studentBtn.classList.add('active');
+    bookingBtn.classList.remove('active');
+    bookingForm.style.display = 'none';
+    studentForm.style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
