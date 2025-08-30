@@ -26,12 +26,7 @@ public class BookingFactory {
                 || Helper.isNullOrEmpty(software)) {
             throw new IllegalArgumentException("All booking fields are required!");
         }
-//
-//        // ✅ Generate and validate 4-digit bookingId
-//        Long bookingId = Helper.generateBookingId();
-//        if (!Helper.isValidBookingId(bookingId)) {
-//            throw new IllegalArgumentException("Invalid booking ID generated");
-//        }
+
 
         return new Booking.Builder()
              //   .setBookingId(Helper.generateBookingId())
