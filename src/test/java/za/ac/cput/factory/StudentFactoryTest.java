@@ -15,8 +15,14 @@ class StudentFactoryTest {
     @Test
         void createStudent() {
             Student student = StudentFactory.createStudent(
-                    "Sandile", "Sibiya", "230975623@mycput.ac.za",
-                    "Mth040", "230975623 ","ICT", "2023", "Third Year");
+                    "Sandile",
+                    "Sibiya",
+                    "230975623@mycput.ac.za",
+                    "Mth040",
+                    230975623L,
+                    "ICT",
+                    "2023",
+                    "Third Year");
             assertNotNull(student);
             System.out.println(student);
         }

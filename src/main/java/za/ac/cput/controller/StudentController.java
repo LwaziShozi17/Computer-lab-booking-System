@@ -31,7 +31,7 @@ public class StudentController {
             return ResponseEntity.ok(Map.of("studentId", registeredStudent));
         } catch (RuntimeException e) {
             System.out.println("Student already registered" + e.getMessage());
-            return ResponseEntity.badRequest().body(Map.of("error11", e.getMessage()));
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 
@@ -43,7 +43,12 @@ public class StudentController {
             Student student = studentService.validateUserLogIn(email, password);
             return ResponseEntity.ok(Map.of(
                     "studentId", student.getStudentId(),
-                    "firstName", student.getFirstName()));
+                    "firstName", student.getFirstName(),
+                    "lastName", student.getLastName(),
+                    "faculty", student.getFaculty(),
+                    "enrollmentYear", student.getEnrollmentYear(),
+                    "currentYear", student.getCurrentYear(),
+                    "email", student.getEmail()));
         } catch (RuntimeException e) {
             System.out.println("Login failed: " + e.getMessage());
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #d9d9d9;
+            text-align: center;
+        }
+
+        /* CPUT Logo */
+        .icon {
+            max-width: 180px;
+            margin-top: 30px;
+        }
+
+        /* Logo */
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .logo span {
+            color: #2f4db3;
+        }
+        .tagline {
+            font-size: 12px;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        /* Content Section */
+        .content-container {
+            width: 80%;
+            margin: 20px auto 80px auto;
+            padding: 15px;
+            background: #e6e6e6;
+            border-radius: 10px;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .content-container h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .content-container img {
+            display: block;
+            margin: 0 auto 20px auto;
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h3 {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #111;
+        }
+
+        .section p, .section ul {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .section ul {
+            margin: 10px 0 0 20px;
+        }
+
+        /* Bottom navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #0d1eb6;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0;
+            color: white;
+        }
+
+        .nav-item {
+            text-align: center;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .nav-item i {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 3px;
+        }
+        .book-btn img {
+            width: 50px;
+            height: 40px;
+        }
+
+
+        /* Book button in center */
+        .book-btn {
+            background-color: white;
+            color: black;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            position: relative;
+            top: -25px;
+            border: 3px solid black;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .book-btn i {
+            font-size: 18px;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- CPUT Logo -->
+<img src="https://vectorseek.com/wp-content/uploads/2023/08/Cput-Logo-Vector.svg-.png" alt="CPUT Logo" class="icon"/>
+
+<!-- Logo -->
+<div class="logo">Lab<span>Mate</span></div>
+<div class="tagline">For the love of computing</div>
+
+<!-- About Section -->
+<div class="content-container">
+    <h2>About Us</h2>
+    <img src="https://ayinfotechgh.com/wp-content/uploads/2019/10/AY-Infotechgh-Computer-lab.jpg" alt="Computer Lab Image">
+
+    <div class="section">
+        <h3>ABOUT US</h3>
+        <p>
+            Welcome to LabMate, your ultimate assistant for booking university computer labs quickly, fairly,
+            and efficiently. Designed by students, for students, LabMate ensures that access to limited lab
+            resources is organized based on your faculty, your course, and your needs.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>OUR MISSION</h3>
+        <p>
+            Our mission is simple: to give every student fair access to the computing resources they need,
+            without the hassle. Whether you're a design student needing high-end machines, or a CS major
+            prepping for a coding exam, LabMate ensures you never miss a lab session again.
+        </p>
+    </div>
+
+    <div class="section">
+        <h3>KEY FEATURES</h3>
+        <ul>
+            <li>You get lab access when you actually need it.</li>
+            <li>Priority is given to those who require specific software or environments.</li>
+            <li>Fair usage across departments.</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Bottom nav -->
+<div class="bottom-nav">
+    <div class="nav-item">
+        <i class="fa-solid fa-house"></a></i>
+        HOME
+    </div>
+    <div class="nav-item">
+        <i class="fa-solid fa-user"><a href=""></a></i>
+        PROFILE
+    </div>
+    <div class="book-btn">
+        <img src="https://static.vecteezy.com/system/resources/previews/010/366/243/large_2x/computer-icon-transparent-free-png.png" alt="book"></a>
+        BOOK
+    </div>
+    <div class="nav-item">
+        <i class="fa-solid fa-list"></a></i>
+        LOAD BOOKING
+    </div>
+    <div class="nav-item">
+        <i class="fa-solid fa-circle-info"><a href=""></a></i>
+        ABOUT
+    </div>
+</div>
+<script>
+    // function for navigation bar to reference
+    document.addEventListener('DOMContentLoaded', () => {
+        // Select navigation items
+        const homeNav = document.querySelector('.bottom-nav .nav-item:nth-child(1)');
+        const profileNav = document.querySelector('.bottom-nav .nav-item:nth-child(2)');
+        const bookBtn = document.querySelector('.bottom-nav .book-btn');
+        const loadBookingNav = document.querySelector('.bottom-nav .nav-item:nth-child(4)');
+        const aboutNav = document.querySelector('.bottom-nav .nav-item:nth-child(5)');
+
+        // Add event listeners for navigation
+        homeNav.addEventListener('click', () => {
+            window.location.href = 'Home.html';
+        });
+        profileNav.addEventListener('click', () => {
+            window.location.href = 'Profile.html';
+        });
+
+        bookBtn.addEventListener('click', () => {
+            window.location.href = 'Book.html';
+        });
+
+        loadBookingNav.addEventListener('click', () => {
+            window.location.href = 'LoadBooking.html';
+        });
+
+        aboutNav.addEventListener('click', () => {
+            window.location.href = 'About.html';
+        });
+    });
+</script>
+</body>
+</html>

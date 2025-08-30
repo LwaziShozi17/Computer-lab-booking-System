@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, String> {
+public interface StudentRepository extends JpaRepository<Student, Long> {
     Student findByStudentId(Long studentId);
     Student findByEmail(String email);
 //    Student deleteByStudentId(String studentId);

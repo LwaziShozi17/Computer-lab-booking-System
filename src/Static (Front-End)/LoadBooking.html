@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LoadBooking</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #d9d9d9;
+      text-align: center;
+    }
+
+    /* Menu icon */
+    .menu-icon {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: white;
+      padding: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .menu-icon div {
+      width: 25px;
+      height: 3px;
+      background-color: black;
+      margin: 5px 0;
+    }
+    /* CPUT Logo */
+    .icon {
+      max-width: 180px;
+      margin-top: 30px;
+    }
+
+    /* Logo */
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .logo span {
+      color: #2f4db3;
+    }
+    .tagline {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+
+    .toggle-buttons {
+      Width: 95%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-left: 40px;
+      background-color: #b3b3b3;
+    }
+
+    .toggle-buttons button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      background-color: transparent;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .toggle-buttons button.active {
+      background-color: black;
+      color: white;
+    }
+
+    .form-section {
+      margin-top: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+
+    input {
+      width: 93.5%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .search-btn {
+      width: 95%;
+      padding: 10px;
+      background-color: black;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .form-result {
+      width: 50%;
+      margin: 50px auto;
+      padding: 15px;
+      background-color: white;
+      border-radius: 5px;
+      text-align: left;
+      margin-bottom: 150px;
+    }
+    .form-result p {
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .form-result div {
+      margin-left: 15px;
+    }
+    /*.form-result button {*/
+    /*  color: white;*/
+    /*  background-color: black;*/
+    /*  padding: 10px;*/
+    /*  margin: 20px;*/
+    /*  border: none;*/
+    /*  cursor: pointer;*/
+    /*  border-radius: 3px;*/
+    /*  font-size: 0.9rem;*/
+    /*  text-align: center;*/
+    /*}*/
+
+    /* Center buttons equally */
+    .form-result .button-group {
+      display: flex;
+      justify-content: center;  /* centers horizontally */
+      gap: 10px; /* space between buttons */
+      margin-top: 20px;
+    }
+
+    .form-result button {
+      flex: 1; /* make both buttons equal size */
+      max-width: 150px; /* optional, so they don’t stretch too much */
+      color: white;
+      background-color: black;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    /* Bottom navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #0d1eb6;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px 0;
+      color: white;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .nav-item i {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .book-btn img {
+      width: 50px;
+      height: 40px;
+    }
+
+
+    /* Book button in center */
+    .book-btn {
+      background-color: white;
+      color: black;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      position: relative;
+      top: -25px;
+      border: 3px solid black;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .book-btn i {
+      font-size: 18px;
+      margin-bottom: 3px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Menu icon -->
+<div class="menu-icon">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<!-- CPUT Logo -->
+<img src="https://vectorseek.com/wp-content/uploads/2023/08/Cput-Logo-Vector.svg-.png" alt="CPUT Logo" class="icon"/>
+
+
+<!-- Logo -->
+<div class="logo">Lab<span>Mate</span></div>
+<div class="tagline">For the love of computing</div>
+
+<div class="toggle-buttons">
+  <button id="bookingBtn" class="active">Booking ID</button>
+  <button id="studentBtn">Student Number</button>
+</div>
+
+<!-- Booking ID form -->
+<div id="bookingForm" class="form-section">
+  <p>Please enter booking ID to check for current load booking that you booked</p>
+  <label for="bookingId">Booking ID</label>
+  <input type="text" id="bookingId" placeholder="Enter Booking ID" />
+  <button class="search-btn">SEARCH</button>
+</div>
+
+<!-- Student Number form -->
+<div id="studentForm" class="form-section" style="display:none;">
+  <p>Please enter student number to check for current load booking that you have booked.</p>
+  <label for="studentNumber">Student Number</label>
+  <input type="text" id="studentNumber" placeholder="Enter Student Number" />
+  <button type="submit" class="search-btn">SEARCH</button>
+</div>
+
+<!--<div id="bookingResult" class="form-result">-->
+<!--    &lt;!&ndash; Booking result will be displayed here &ndash;&gt;-->
+<!--  <p>Your Booking Details</p>-->
+<!--&lt;!&ndash;  <div class="form-results" </div>&ndash;&gt;-->
+<!--  <div class="computer-detail"><span>BookingId:</span> ${computer.bookingId}</div>-->
+<!--  <div class="computer-detail"><span>StudentId:</span> ${studentId.labId}</div>-->
+<!--  <div class="computer-detail"><span>ComputerId:</span> ${computer.computerId}</div>-->
+<!--  <div class="computer-detail"><span>Faculty:</span> ${computer.faculty}</div>-->
+<!--  <div class="computer-detail"><span>Course:</span> ${computer.course}</div>-->
+<!--  <div class="computer-detail"><span>Start Time:</span> ${computer.startTime}</div>-->
+<!--  <div class="computer-detail"><span>End Time:</span> ${computer.endTime}</div>-->
+<!--  <div class="computer-detail"><span>Software:</span> ${computer.software}</div>-->
+<!--  <button type="submit" class="cancel-btn">Cancel Booking</button><button type="submit" class="done-btn">Done</button>-->
+<!--</div>-->
+
+<!-- Booking Result -->
+<div id="bookingResult" class="form-result" style="display:none;">
+  <p>Your Booking Details</p>
+  <div id="bookingDetails"></div>
+
+  <div class="button-group">
+    <button type="submit" class="cancel-btn">Cancel Booking</button>
+    <button type="submit" class="done-btn">Done</button>
+  </div>
+</div>
+
+<!-- Bottom nav -->
+<div class="bottom-nav">
+  <div class="nav-item">
+    <i class="fa-solid fa-house"></i>
+    HOME
+  </div>
+  <div class="nav-item">
+    <i class="fa-solid fa-user"></i>
+    PROFILE
+  </div>
+  <div class="book-btn">
+    <img src="https://static.vecteezy.com/system/resources/previews/010/366/243/large_2x/computer-icon-transparent-free-png.png" alt="book">
+    BOOK
+  </div>
+  <div class="nav-item">
+    <i class="fa-solid fa-list"></i>
+    LOAD BOOKING
+  </div>
+  <div class="nav-item">
+    <i class="fa-solid fa-circle-info"></i>
+    ABOUT
+  </div>
+</div>
+
+<script>
+  // function for navigation bar to reference
+  document.addEventListener('DOMContentLoaded', () => {
+    // Select navigation items
+    const homeNav = document.querySelector('.bottom-nav .nav-item:nth-child(1)');
+    const profileNav = document.querySelector('.bottom-nav .nav-item:nth-child(2)');
+    const bookBtn = document.querySelector('.bottom-nav .book-btn');
+    const loadBookingNav = document.querySelector('.bottom-nav .nav-item:nth-child(4)');
+    const aboutNav = document.querySelector('.bottom-nav .nav-item:nth-child(5)');
+
+    // Add event listeners for navigation
+    homeNav.addEventListener('click', () => {
+      window.location.href = 'Home.html';
+    });
+
+    profileNav.addEventListener('click', () => {
+      window.location.href = 'Profile.html';
+    });
+
+    bookBtn.addEventListener('click', () => {
+      window.location.href = 'Book.html';
+    });
+
+    loadBookingNav.addEventListener('click', () => {
+      window.location.href = 'LoadBooking.html';
+    });
+
+    aboutNav.addEventListener('click', () => {
+      window.location.href = 'About.html';
+    });
+  });
+  //
+  const bookingBtn = document.getElementById('bookingBtn');
+  const studentBtn = document.getElementById('studentBtn');
+  const bookingForm = document.getElementById('bookingForm');
+  const studentForm = document.getElementById('studentForm');
+  const bookingResult = document.getElementById('bookingResult');
+  const bookingDetails = document.getElementById('bookingDetails');
+
+  // Toggle between forms
+  bookingBtn.addEventListener('click', () => {
+    bookingBtn.classList.add('active');
+    studentBtn.classList.remove('active');
+    bookingForm.style.display = 'block';
+    studentForm.style.display = 'none';
+    bookingResult.style.display = 'none';
+  });
+
+  studentBtn.addEventListener('click', () => {
+    studentBtn.classList.add('active');
+    bookingBtn.classList.remove('active');
+    bookingForm.style.display = 'none';
+    studentForm.style.display = 'block';
+    bookingResult.style.display = 'none';
+  });
+
+  // Function for search button
+  document.getElementById('bookingForm').querySelector('.search-btn').addEventListener('click', function() {
+    const bookingId = document.getElementById('bookingId').value;
+
+    if (bookingId) {
+        // Make API call to fetch booking by student ID
+        fetch(`http://localhost:8080/cputlibrary.com/http/cputlibrary.com/LoadBookingByBookingId/${bookingId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    alert(`Error: ${data.error}`);
+                } else {
+                    // Display the booking information
+                  bookingDetails.innerHTML = `
+                    <div><b>Booking ID:</b> ${data.bookingId}</div>
+                    <div><b>Student ID:</b> ${data.studentId}</div>
+                    <div><b>Computer ID:</b> ${data.computerId}</div>
+                    <div><b>Faculty:</b> ${data.faculty}</div>
+                    <div><b>Course:</b> ${data.course}</div>
+                    <div><b>Start Time:</b> ${data.startTime}</div>
+                    <div><b>End Time:</b> ${data.endTime}</div>
+                    <div><b>Software:</b> ${data.software}</div>
+                  `;
+                  bookingResult.style.display = 'block'; // show results
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Failed to fetch booking, bookingId doesn't exist in database.");
+            });
+    } else {
+        alert("Please enter a bookingId.");
+    }
+  });
+
+    // Function for student number search button
+    document.getElementById('studentForm').querySelector('.search-btn').addEventListener('click', function() {
+      const studentNumber = document.getElementById('studentNumber').value;
+
+      if (studentNumber) {
+          // Make API call to fetch booking by student ID
+          fetch(`http://localhost:8080/cputlibrary.com/http/cputlibrary.com/LoadBookingByStudentId/${studentNumber}`)
+              .then(response => {
+                  if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                  }
+                  return response.json();
+              })
+              .then(data => {
+                  if (data.error) {
+                      alert(`Error: ${data.error}`);
+                  } else {
+                      // Display the booking information
+                    bookingDetails.innerHTML = `
+                    <div><b>Booking ID:</b> ${data.bookingId}</div>
+                    <div><b>Student ID:</b> ${data.studentId}</div>
+                    <div><b>Computer ID:</b> ${data.computerId}</div>
+                    <div><b>Faculty:</b> ${data.faculty}</div>
+                    <div><b>Course:</b> ${data.course}</div>
+                    <div><b>Start Time:</b> ${data.startTime}</div>
+                    <div><b>End Time:</b> ${data.endTime}</div>
+                    <div><b>Software:</b> ${data.software}</div>
+                  `;
+                    bookingResult.style.display = 'block'; // show results
+                  }
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+                  alert("Failed to fetch booking, student number doesn't exist in database.");
+              });
+      } else {
+          alert("Please enter a student number.");
+      }
+    });
+
+    // Function for done button
+    document.querySelector('.done-btn').addEventListener('click', function() {
+      bookingResult.style.display = 'none'; // hide results
+      document.getElementById('bookingId').value = '';
+      document.getElementById('studentNumber').value = '';
+    });
+
+
+  // Function for cancel button
+  document.querySelector('.cancel-btn').addEventListener('click', function() {
+      const bookingId = document.getElementById('bookingId').value
+          || bookingDetails.querySelector('div:nth-child(1)').textContent.split(': ')[1];
+
+      if (bookingId) {
+          // Call DELETE endpoint properly
+          fetch(`http://localhost:8080/cputlibrary.com/http/cputlibrary.com/CancelBookingByBookingId/${bookingId}`, {
+              method: 'DELETE'
+          })
+              .then(response => response.json())
+              .then(data => {
+                  if (data.error) {
+                      alert(`Error: ${data.error}`);
+                  } else {
+                      alert('Booking cancelled successfully.');
+
+                      bookingResult.style.display = 'none';
+                      document.getElementById('bookingId').value = '';
+                      document.getElementById('studentNumber').value = '';
+                  }
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+                  alert('Failed to cancel booking. Please try again.');
+              });
+      } else {
+          alert("No booking ID found to cancel.");
+      }
+  });
+
+</script>
+
+</body>
+</html>

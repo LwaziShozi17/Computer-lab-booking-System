@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #d9d9d9;
+            text-align: center;
+        }
+        /* CPUT Logo */
+        .icon {
+            max-width: 180px;
+            margin-top: 30px;
+        }
+
+        /* Logo */
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .logo span {
+            color: #2f4db3;
+        }
+        .tagline {
+            font-size: 12px;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        /* Profile Section */
+        .profile-container {
+            max-width: 450px;
+            margin: 10px auto;
+            background: #e6e6e6;
+            padding: 20px;
+            margin-bottom: 150px; /* Space for bottom nav */
+            border-radius: 10px;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .profile-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .profile-details {
+            line-height: 2;
+            text-align: center;
+        }
+
+        .profile-details span {
+            text-align: left;
+            font-weight: bold;
+            width: 140px;
+            display: inline-block;
+        }
+
+        .edit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .edit-btn:hover {
+            background: #555;
+        }
+
+        /* Bottom navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 8px 0;
+            color: white;
+        }
+
+        .nav-item {
+            text-align: center;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .nav-item i {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 3px;
+        }
+        .book-btn img {
+            width: 50px;
+            height: 40px;
+        }
+
+
+        /* Book button in center */
+        .book-btn {
+            background-color: white;
+            color: black;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            position: relative;
+            top: -25px;
+            border: 3px solid black;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .book-btn i {
+            font-size: 18px;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- CPUT Logo -->
+<img src="https://vectorseek.com/wp-content/uploads/2023/08/Cput-Logo-Vector.svg-.png" alt="CPUT Logo" class="icon"/>
+
+
+<!-- Logo -->
+<div class="logo">Lab<span>Mate</span></div>
+<div class="tagline">For the love of computing</div>
+
+<!-- Profile Section -->
+<div class="profile-container">
+    <h2>Profile</h2>
+    <div class="profile-details">
+        <p><span>Student Number:</span> 220978453</p>
+        <p><span>Names:</span> John</p>
+        <p><span>Surname:</span> Doe</p>
+        <p><span>Gender:</span> Male</p>
+        <p><span>Title:</span> Mr</p>
+        <p><span>Faculty:</span> Informatics and Design</p>
+        <p><span>Course:</span> Information Technology</p>
+        <p><span>Email:</span> 220978453@mycput.ac.za</p>
+        <p><span>Address:</span> 1 Adderley St, Cape Town Station</p>
+        <p><span>Password:</span> ********</p>
+    </div>
+    <button class="edit-btn">Edit Profile</button>
+</div>
+
+<!-- Bottom nav -->
+<div class="bottom-nav">
+    <div class="nav-item">
+        <i class="fa-solid fa-house"></a></i>
+        HOME
+    </div>
+    <div class="nav-item">
+        <i class="fa-solid fa-user"><a href=""></a></i>
+        PROFILE
+    </div>
+    <div class="book-btn">
+        <img src="https://static.vecteezy.com/system/resources/previews/010/366/243/large_2x/computer-icon-transparent-free-png.png" alt="book"></a>
+        COMPUTERS
+    </div>
+    <div class="nav-item">
+        <i class="fa-solid fa-list"></a></i>
+        MAINTENANCE
+    </div>
+    <div class="nav-item">
+        <i class="fa-solid fa-circle-info"><a href=""></a></i>
+        ABOUT
+    </div>
+</div>
+<script>
+    // function for navigation bar to reference
+    document.addEventListener('DOMContentLoaded', () => {
+        // Select navigation items
+        const homeNav = document.querySelector('.bottom-nav .nav-item:nth-child(1)');
+        const profileNav = document.querySelector('.bottom-nav .nav-item:nth-child(2)');
+        const bookBtn = document.querySelector('.bottom-nav .book-btn');
+        const loadBookingNav = document.querySelector('.bottom-nav .nav-item:nth-child(4)');
+        const aboutNav = document.querySelector('.bottom-nav .nav-item:nth-child(5)');
+
+        // Add event listeners for navigation
+        homeNav.addEventListener('click', () => {
+            window.location.href = 'Home Admin.html';
+        });
+        profileNav.addEventListener('click', () => {
+            window.location.href = 'ProfileAdmin.html';
+        });
+
+        bookBtn.addEventListener('click', () => {
+            window.location.href = 'Compter.html';
+        });
+
+        loadBookingNav.addEventListener('click', () => {
+            window.location.href = 'Maintanance.html';
+        });
+
+        aboutNav.addEventListener('click', () => {
+            window.location.href = 'AboutAdmin.html';
+        });
+    });
+</script>
+
+</body>
+</html>

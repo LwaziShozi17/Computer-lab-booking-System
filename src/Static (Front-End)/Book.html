@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computer Search</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #d9d9d9;
+      text-align: center;
+    }
+
+    /* Menu icon */
+    .menu-icon {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: white;
+      padding: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .menu-icon div {
+      width: 25px;
+      height: 3px;
+      background-color: black;
+      margin: 5px 0;
+    }
+
+    /* CPUT Logo */
+    .icon {
+      max-width: 180px;
+      margin-top: 30px;
+    }
+
+    /* App Logo */
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .logo span {
+      color: #2f4db3;
+    }
+    .tagline {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+    /* Welcome text */
+    h2 {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    h2 {
+      text-align: left;
+      margin-bottom: 15px;
+      margin-left: 20px;
+    }
+    label {
+      display: block;
+      text-align: left;
+      margin-top: 10px;
+      margin-left: 30px;
+      font-weight: bold;
+    }
+    select, input {
+      width: 95%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid red;
+    }
+    .time-slot {
+      width: 93%;
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 20px auto;
+      margin-top: 20px;
+      justify-content: center;
+      border: 2px solid Green;
+    }
+    .time-slot input {
+      width: 90%;
+      justify-content: left;
+      border: 1px solid blue;
+      margin-right: 10px;
+      margin-bottom: 30px;
+    }
+    .time-slot h3 {
+      text-align: center;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #aaa;
+      padding-bottom: 5px;
+    }
+    .time-fields {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .time-fields div {
+      flex: 1;
+    }
+    button {
+      width: 95%;
+      background: #222;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #444;
+    }
+
+    /* Results section */
+    .results-container {
+      display: none;
+      margin: 10px auto;
+      width: 90%;
+      background: wheat;
+      padding: 5px;
+      border-radius: 10px;
+      border: 1px solid black;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .results-header {
+      text-align: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid black;
+    }
+
+    .computer-card {
+      background: whitesmoke;
+      border: 1px solid black;
+      align-items: center;
+      justify-content: center;
+      width: 40%;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px auto;
+      margin-bottom: 15px;
+    }
+
+    .computer-card h3 {
+      color: black;
+      text-align: center;
+      font-weight: bold;
+    }
+    .computer-detail {
+      color: black;
+      font-weight: bold;
+      text-align: left;
+      margin: 10px 10px;
+      font-size: 15px;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 20px;
+      color: #d32f2f;
+      font-weight: bold;
+    }
+
+    /* Popup background *******************************************/
+    .popup {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    /* Popup box */
+    .popup-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .popup-content h2 {
+      color: green;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .popup-content p {
+      font-size: 14px;
+      margin-bottom: 20px;
+      text-align: left;
+      padding-left: 100px;
+    }
+
+    #popupOkBtn {
+      background: black;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    #popupOkBtn:hover {
+      background: #1c3380;
+    }
+
+    /**********************************************/
+    .book-btn {
+      background: black;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 15px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .book-btn:hover {
+      background: #1c3380;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Menu icon -->
+<div class="menu-icon">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<!-- CPUT Logo -->
+<img src="https://vectorseek.com/wp-content/uploads/2023/08/Cput-Logo-Vector.svg-.png" alt="CPUT Logo" class="icon"/>
+
+<!-- Logo -->
+<div class="logo">Lab<span>Mate</span></div>
+<div class="tagline">For the love of computing</div>
+
+<!-- Title -->
+<h2>Computer Search</h2>
+
+<!-- Faculty -->
+<label for="faculty">Faculty</label>
+<select id="faculty" name="faculty">
+  <option value="">Select</option>
+  <option id="Engineering" value="Engineering">Engineering</option>
+  <option id="Information" value="Information">Information Technology</option>
+  <option id="Business Management" value="Business">Business and Management</option>
+</select>
+
+<!-- Course -->
+<label for="course">Course</label>
+<select id="course" name="course">
+    <option value="">Select Faculty First</option>
+</select>
+
+<!-- Time Slot -->
+<div class="time-slot">
+  <h3>Time Slot</h3>
+  <div class="time-fields">
+    <div>
+      <label for="start">Check in time/Date</label>
+      <input type="datetime-local" id="start" name="start">
+    </div>
+    <div>
+      <label for="end">Check out time/Date</label>
+      <input type="datetime-local" id="end" name="end">
+    </div>
+  </div>
+</div>
+
+<!-- Submit -->
+<button type="submit" id="button">SEARCH COMPUTER</button>
+
+<!-- Results Container -->
+<div class="results-container" id="resultsContainer">
+  <h2>Available Computers</h2>
+</div>
+<div id="computersList"></div>
+
+<!-- Popup Modal -->
+<div id="successPopup" class="popup">
+  <div class="popup-content">
+    <h2>Booking Successful!</h2>
+    <p id="popupMessage"></p>
+    <button id="popupOkBtn">OK</button>
+  </div>
+</div>
+
+<script>
+  // Check if faculty is selected before course
+  document.getElementById('course').addEventListener('change', function() {
+    const faculty = document.getElementById('faculty').value;
+    if (faculty === '') {
+      alert('Please select a faculty before choosing a course.');
+      this.value = '';
+    }
+  });
+
+  // Mapping faculties to courses
+  const courseOptions = {
+      Engineering: [
+          { value: "Mechanical", text: "Mechanical Engineering" },
+          { value: "Civil", text: "Civil Engineering" },
+          { value: "Electrical", text: "Electrical Engineering" }
+      ],
+      Information: [
+          { value: "IT : Appdev", text: "Information Technology: AppDev" },
+          { value: "IT : Multimedia", text: "Information Technology: Multimedia" },
+          { value: "IT : Commnet", text: "Information Technology: CommNet" }
+      ],
+      Business: [
+          { value: "Human Resource", text: "Human Resources" },
+          { value: "Business Practice", text: "Business Practice" },
+          { value: "Chartered Accountant", text: "Chartered Accountant" }
+      ]
+  };
+
+  // Update course dropdown when faculty changes
+  document.getElementById("faculty").addEventListener("change", function () {
+      const faculty = this.value;
+      const courseDropdown = document.getElementById("course");
+      courseDropdown.innerHTML = ""; // Clear previous options
+
+      if (!faculty || !courseOptions[faculty]) {
+          courseDropdown.innerHTML = '<option value="">Select Faculty First</option>';
+          return;
+      }
+
+      // Add default option
+      const defaultOption = document.createElement("option");
+      defaultOption.value = "";
+      defaultOption.textContent = "Select Course";
+      courseDropdown.appendChild(defaultOption);
+
+      // Populate courses
+      courseOptions[faculty].forEach(course => {
+          const option = document.createElement("option");
+          option.value = course.value;
+          option.textContent = course.text;
+          courseDropdown.appendChild(option);
+      });
+  });
+
+  // Display computer results
+  function displayComputers(computers) {
+    const resultsContainer = document.getElementById('resultsContainer');
+    const computersList = document.getElementById('computersList');
+    computersList.innerHTML = '';
+
+    if (computers.length === 0) {
+      computersList.innerHTML = '<div class="no-results">No computers found for this faculty.</div>';
+    } else {
+      computers.forEach(computer => {
+        const softwareName = computer.software && computer.software.trim() !== ""
+                ? computer.software
+                : "No Software Installed";
+
+        const computerCard = document.createElement('div');
+        computerCard.className = 'computer-card';
+        computerCard.innerHTML = `
+          <h3>Computer Details</h3>
+          <div class="results-header"></div>
+          <div class="computer-detail"><span>ComputerId :</span> ${computer.computerId}</div>
+          <div class="computer-detail"><span>Lab :</span> ${computer.labId}</div>
+          <div class="computer-detail"><span>Faculty :</span> ${computer.faculty}</div>
+          <div class="computer-detail"><span>Status :</span> ${computer.status}</div>
+          <div class="computer-detail" data-software="${softwareName}">
+            <span>Software :</span> ${softwareName}
+          </div>
+          <button
+            class="book-btn"
+            onclick="bookComputer('${computer.computerId}', '${softwareName}')">
+            Book This Computer
+          </button>
+        `;
+        computersList.appendChild(computerCard);
+      });
+    }
+
+    resultsContainer.style.display = 'block';
+    resultsContainer.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Handle computer booking
+  function bookComputer(computerId, software) {
+    const faculty = document.getElementById('faculty').value;
+    const course = document.getElementById('course').value;
+    const startTime = document.getElementById('start').value;
+    const endTime = document.getElementById('end').value;
+
+    if (!startTime || !endTime) {
+      alert('Please select both check-in and check-out times before booking.');
+      return;
+    }
+
+    const student = JSON.parse(sessionStorage.getItem("currentStudent"));
+    if (!student) {
+      alert("No student logged in! Please log in first.");
+      return;
+    }
+
+    const booking = {
+      studentId: student.studentId,
+      computerId: computerId,
+      faculty: faculty,
+      course: course,
+      startTime: startTime.replace("T", " "),
+      endTime: endTime.replace("T", " "),
+      software: software
+    };
+
+    fetch("http://localhost:8080/cputlibrary.com/http/cputlibrary.com/Book", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(booking)
+    })
+            .then(response => {
+              if (!response.ok) throw new Error("Failed to create booking");
+              return response.json();
+            })
+            .then(data => {
+              document.getElementById("popupMessage").innerHTML = `
+        <strong>Booking ID:</strong> ${data.bookingId}<br>
+        <strong>Student ID:</strong> ${data.studentId}<br>
+        <strong>Computer:</strong> ${data.computerId}<br>
+        <strong>Faculty:</strong> ${data.faculty}<br>
+        <strong>Course:</strong> ${data.course}<br>
+        <strong>Start Time:</strong> ${data.startTime}<br>
+        <strong>End Time:</strong> ${data.endTime}<br>
+        <strong>Software:</strong> ${data.software || "No Software Installed"}
+      `;
+              document.getElementById("successPopup").style.display = "flex";
+            })
+            .catch(error => {
+              console.error("Error:", error);
+              alert("Failed to create booking, booking with this Student Number already exist" || error);
+            });
+
+    document.getElementById("popupOkBtn").addEventListener("click", function() {
+      document.getElementById("successPopup").style.display = "none";
+    });
+  }
+
+  // Check form before searching
+  document.getElementById('button').addEventListener('click', function(e) {
+    e.preventDefault();
+    const faculty = document.getElementById('faculty').value;
+    const course = document.getElementById('course').value;
+    const start = document.getElementById('start').value;
+    const end = document.getElementById('end').value;
+
+    if (!faculty || !course || !start || !end) {
+      alert('Please fill out all fields.');
+      return;
+    }
+
+    const startTime = new Date(start);
+    const endTime = new Date(end);
+    if (startTime >= endTime) {
+      alert('Check-in time must be before check-out time.');
+      return;
+    }
+    if (startTime < new Date()) {
+      alert('Check-in time cannot be in the past.');
+      return;
+    }
+
+    if (faculty) {
+      fetch(`http://localhost:8080/cputlibrary.com/http/cputlibrary.com/SearchComputer/${faculty}`)
+              .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+              })
+              .then(data => {
+                if (data.error) {
+                  alert(`Error: ${data.error}`);
+                } else {
+                  displayComputers(data);
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to fetch computers. Please check the faculty and try again.');
+              });
+    }
+  });
+</script>
+</body>
+</html>

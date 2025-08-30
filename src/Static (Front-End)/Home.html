@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #d9d9d9;
+      text-align: center;
+    }
+
+    /* Menu icon */
+    .menu-icon {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: white;
+      padding: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .menu-icon div {
+      width: 25px;
+      height: 3px;
+      background-color: black;
+      margin: 5px 0;
+    }
+    /* CPUT Logo */
+    .icon {
+      max-width: 180px;
+      margin-top: 30px;
+    }
+
+    /* Logo */
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .logo span {
+      color: #2f4db3;
+    }
+    .tagline {
+      font-size: 12px;
+      color: #444;
+      margin-bottom: 30px;
+    }
+
+    /* Welcome text */
+    h2 {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    /* Circle image */
+    .circle {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background-color: white;
+      border: 10px solid black;
+      margin: 20px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .circle img {
+      width: 120px;
+    }
+    .circle p {
+      font-size: 12px;
+      margin-top: 15px;
+      font-weight: bold;
+
+    }
+
+    /* Bottom navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #0d1eb6;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px 0;
+      color: white;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .nav-item i {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .book-btn img {
+      width: 50px;
+      height: 40px;
+    }
+
+
+    /* Book button in center */
+    .book-btn {
+      background-color: white;
+      color: black;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      position: relative;
+      top: -25px;
+      border: 3px solid black;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .book-btn i {
+      font-size: 18px;
+      margin-bottom: 3px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Menu icon -->
+<div class="menu-icon">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<!-- CPUT Logo -->
+<img src="https://vectorseek.com/wp-content/uploads/2023/08/Cput-Logo-Vector.svg-.png" alt="CPUT Logo" class="icon"/>
+
+<!-- Logo -->
+<div class="logo">Lab<span>Mate</span></div>
+<div class="tagline">For the love of computing</div>
+
+<!-- Welcome message -->
+<h2>HI, JOHN<br>WELCOME</h2>
+
+<!-- Circle image -->
+<div class="circle">
+  <div>
+    <img src="https://icon-library.com/images/desktop-computer-icon-png/desktop-computer-icon-png-1.jpg" alt="Computer">
+    <p>Click. Book. Study</p>
+  </div>
+</div>
+
+<!-- Bottom nav -->
+<div class="bottom-nav">
+  <div class="nav-item">
+    <i class="fa-solid fa-house"></a></i>
+    HOME
+  </div>
+  <div class="nav-item">
+    <i class="fa-solid fa-user"><a href=""></a></i>
+    PROFILE
+  </div>
+  <div class="book-btn">
+    <img src="https://static.vecteezy.com/system/resources/previews/010/366/243/large_2x/computer-icon-transparent-free-png.png" alt="book"></a>
+    BOOK
+  </div>
+  <div class="nav-item">
+    <i class="fa-solid fa-list"></a></i>
+    LOAD BOOKING
+  </div>
+  <div class="nav-item">
+    <i class="fa-solid fa-circle-info"><a href=""></a></i>
+    ABOUT
+  </div>
+</div>
+
+<script>
+  // Retrieve student information from session storage
+    const studentData = JSON.parse(sessionStorage.getItem('currentStudent'));
+
+    // Display student information if available
+    if (studentData) {
+      const welcomeMessage = document.querySelector('h2');
+      welcomeMessage.innerHTML = `HI, ${studentData.firstName.toUpperCase()}<br>WELCOME`;
+    } else {
+      window.location.href = 'LogIn.html';
+    }
+
+  // function for navigation bar to reference
+  document.addEventListener('DOMContentLoaded', () => {
+    // Select navigation items
+    const homeNav = document.querySelector('.bottom-nav .nav-item:nth-child(1)');
+    const profileNav = document.querySelector('.bottom-nav .nav-item:nth-child(2)');
+    const bookBtn = document.querySelector('.bottom-nav .book-btn');
+    const loadBookingNav = document.querySelector('.bottom-nav .nav-item:nth-child(4)');
+    const aboutNav = document.querySelector('.bottom-nav .nav-item:nth-child(5)');
+
+    // Add event listeners for navigation
+    profileNav.addEventListener('click', () => {
+      window.location.href = 'Profile.html';
+    });
+
+    bookBtn.addEventListener('click', () => {
+      window.location.href = 'Book.html';
+    });
+
+    loadBookingNav.addEventListener('click', () => {
+      window.location.href = 'LoadBooking.html';
+    });
+
+    aboutNav.addEventListener('click', () => {
+      window.location.href = 'About.html';
+    });
+  });
+
+</script>
+
+</body>
+</html>
